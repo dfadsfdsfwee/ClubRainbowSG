@@ -13,14 +13,14 @@ namespace ClubRainbowSG.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(string email, string password)
         {
-            // Example login validation (replace with real authentication logic)
-            if (email == "user" && password == "password")  // Your login logic
+            
+            if (email == "user" && password == "password")  
             {
-                // Redirect to another controller and view after successful login
-                return RedirectToAction("eventHome", "Home");  // Redirect to "EventHome" action in "Home" controller
+                
+                return RedirectToAction("eventHome", "Home");  
             }
 
-            // If login fails, return to the login page with an error message
+           
             ViewBag.ErrorMessage = "Invalid credentials.";
             return View();
         }
