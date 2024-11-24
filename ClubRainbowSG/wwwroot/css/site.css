@@ -1,28 +1,36 @@
 html {
-  font-size: 14px;
-  font-family:Arial;
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
 }
+/*media query---------------------------------------------------------------------------------*/
 /*DESKTOP VERSION*/
 @media (max-width: 2024px) {
     html {
         font-size: 16px;
-        font-family: Arial;
-        background-color:hotpink;
     }
-    input {
-        width: 60%;
+    .form-div-groups {
+        margin-bottom: 1.5%;
     }
+    .Icon {
+        font-size: 200px;
+    }
+
 
 }
 /*Tablet Version*/
-@media(min-width:610px) and ( max-width:768px){
+@media(min-width:768px) and ( max-width:1024px){
     html {
         font-size: 14px;
-        font-family: Arial;
-        background-color:blueviolet;
     }
-    input {
-        width: 80%;
+    .form-group {
+        margin-top: 10%;
+    }
+    .form-div-groups {
+        margin-bottom: 3%;
+    }
+    .Icon {
+        font-size: 200px;
     }
 
 }
@@ -31,23 +39,16 @@ html {
 @media( max-width:600px) {
     html {
         font-size: 14px;
-        font-family: Arial;
-        background-color:aqua;
     }
-    input{
-        width:300px;
+    .form-div-groups {
+        margin-bottom: 3%;
+    }
+    .Icon {
+        font-size: 120px;
     }
 
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
 
 .container-fluid {
     background-color: orange;
@@ -57,27 +58,72 @@ body {
 /*  THIS IS FOR HEADER FONT SIZE
     H1: FOR HEADERS 
     H2: FOR GREY FONT DESCRIPTIONS
+    ---------------------------------------------------------------------------------
 */
 
 h1{     
-    text-align:left;
     font-size:24px;
     font-weight:600;
 }
 h2{
-    text-align:justify;
     color:#808080;
     font-size:14px;
 }
-.form-group{
-    align-content:flex-start;
-    width:70%;
-    background-color:white;
+.Icon{
+    text-align:center;
 }
-input{
-    background-color:#fafafa;
-    border-radius:4px;
-    border:1px solid #FAFAFA;
-    margin:5px;
+/*FORM CSS SECTION---------------------------------------------------------------------------------*/
+.form-group {
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10%;
+}
+/*INPUT TEXTBOX CSS*/
+input {
+    align-content: center;
+    background-color: #d3d3d3;
+    border: none;
+    padding: 10px;
+    width: 100%;
+}
+
+placeholder {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+/*FORGETPASSWOR ? LINK*/
+.form-div-groups a {
+    color: #ba2d32;
+    text-decoration:none;
 
 }
+.form-div-groups a:hover {
+    text-decoration: underline;
+}
+/*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top:10px;
+    background-color: #f1a259;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+.btn:hover {
+    background-color: #FF7F50;
+}
+
+/*EMAIL ICON CSS-------------------------------------------------------------------------------*/
+.Icon {
+    color: #f1a259;
+    width: 100%;
+    text-align: center;
+}
+
