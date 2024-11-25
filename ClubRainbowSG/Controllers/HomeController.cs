@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using clubrainbowSG.Data;
 using ClubRainbowSG.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,11 +8,11 @@ namespace ClubRainbowSG.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -23,18 +24,48 @@ namespace ClubRainbowSG.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> AddAccount()
+        {
+            Console.WriteLine("AddAccount method is being called");
+
+
+            var account = new User
+            {
+                Username = "johntest",
+                Email = "johndoe@example.com",
+                CreatedDate = DateTime.Now
+            };
+
+            _context.Account.Add(account);
+
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Account added successfully");
+        }
 
         public IActionResult eventHome()
         {
-            var options = new List<SelectListItem>
-    {
-        new SelectListItem { Value = "1", Text = "Option 1" },
-        new SelectListItem { Value = "2", Text = "Option 2" },
-        new SelectListItem { Value = "3", Text = "Option 3" }
-    };
-            ViewBag.Options = options;
+            var programmes = _context.TestProgrammes.ToList();
+
+            // If no results, log this information
+            if (programmes == null || !programmes.Any())
+            {
+                Console.WriteLine("No programmes found in the database.");
+            }
+
+            // Extract PCSnames
+            var pcsNames = programmes.Select(p => p.PCSname).ToList();
+
+            // Log the fetched PCSnames
+            Console.WriteLine("PCSNames fetched: " + string.Join(", ", pcsNames));
+
+            // Passing data to View
+            ViewBag.PCSNames = pcsNames;
+
             return View();
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

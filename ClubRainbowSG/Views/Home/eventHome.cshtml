@@ -1,17 +1,31 @@
-﻿<h2>Welcome, student</h2>
+﻿@model ClubRainbowSG.Models.TestProgramme
+@{
+    ViewBag.Title = "Event Home";
+}
 
-<h2>Choose an Event</h2>
+@{
+    var pcsNames = ViewBag.PCSNames as List<string>;
+}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dropdown Example</title>
-</head>
-<body>
-    <form method="post">
-        <label for="dropdown">Select an Option:</label>
-        @Html.DropDownList("dropdown", (IEnumerable<SelectListItem>)ViewBag.Options, "Please select", new { @class = "form-control", id = "dropdown" })
-        
+<h2>Select PCS Name</h2>
+
+@if (pcsNames != null && pcsNames.Any())
+{
+    <form method="post" action="/Home/SelectPCSName">
+        <!-- Adjust action URL as needed -->
+        <select name="selectedPCSName" id="selectedPCSName">
+            @foreach (var pcsName in pcsNames)
+            {
+                <option value="@pcsName">@pcsName</option>
+            }
+        </select>
+       
     </form>
-</body>
-</html>
+}
+else
+{
+    <p>No PCS names available.</p>
+}
+
+
+
