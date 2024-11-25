@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using ClubRainbowSG.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClubRainbowSG.Controllers
 {
@@ -25,7 +26,13 @@ namespace ClubRainbowSG.Controllers
 
         public IActionResult eventHome()
         {
-            
+            var options = new List<SelectListItem>
+    {
+        new SelectListItem { Value = "1", Text = "Option 1" },
+        new SelectListItem { Value = "2", Text = "Option 2" },
+        new SelectListItem { Value = "3", Text = "Option 3" }
+    };
+            ViewBag.Options = options;
             return View();
         }
 

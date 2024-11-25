@@ -1,1 +1,17 @@
 ﻿<h2>Welcome, student</h2>
+
+<h2>Choose an Event</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dropdown Example</title>
+</head>
+<body>
+    <form method="post">
+        <label for="dropdown">Select an Option:</label>
+        @Html.DropDownList("dropdown", (IEnumerable<SelectListItem>)ViewBag.Options, "Please select", new { @class = "form-control", id = "dropdown" })
+        
+    </form>
+</body>
+</html>
