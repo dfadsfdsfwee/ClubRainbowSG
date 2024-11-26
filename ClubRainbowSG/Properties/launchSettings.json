@@ -1,4 +1,5 @@
-{
+@ -1,21 +1,13 @@
+﻿{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -7,19 +8,23 @@
       "sslPort": 0
     }
   },
+{
   "profiles": {
     "ClubRainbowSG": {
       "commandName": "Project",
-      "launchBrowser": true,
       "dotnetRunMessages": true,
+      "launchBrowser": true,
       "applicationUrl": "http://localhost:5175",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5175"
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+@ -23,6 +15,24 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -34,5 +39,14 @@
       },
       "distributionName": ""
     }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:52601",
+      "sslPort": 0
+    }
   }
+}
 }
