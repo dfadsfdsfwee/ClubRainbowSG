@@ -12,15 +12,19 @@ namespace clubrainbow.Controllers
         {
             return View();
         }
-       // [HttpGet]
+        [HttpGet]
         public IActionResult newpassword()
         {
             return View();
         }
-        //[HttpPost]
-        public IActionResult passwordchanged()
-        {
-            return View();
+        [HttpPost]
+        public IActionResult passwordchanged(string newPW, string confPW)
+        { var pw = "none";
+            if(newPW==confPW){
+                 pw=newPW.ToString();
+            }
+            
+            return View("PasswordChanged",pw);
         }
     }
 }
