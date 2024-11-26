@@ -155,7 +155,7 @@ placeholder {
     width: 100%;
     padding: 10px;
     margin-top:10px;
-    background-color: #f1a259;
+    background-color: blue;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -189,5 +189,8 @@ placeholder {
     color: #f1a259;
     width: 100%;
     text-align: center;
+}
+.border-top footer text-muted{
+    background-color:cornflowerblue;
 }
 
