@@ -102,6 +102,54 @@ placeholder {
 .form-div-groups a:hover {
     text-decoration: underline;
 }
+/*CHECKBOX SECTION*/
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   cursor: pointer;
+}
+/* Hide the default checkbox */
+.checkbox-group input[type="checkbox"] {
+   display: none;
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #439551;
+    display: inline-block;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Add a checkmark when selected */
+.checkbox-group input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #439551;
+    border-color: #439551;
+}
+
+    .checkbox-group input[type="checkbox"]:checked + .custom-checkbox::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border: 2px solid white;
+        border-width: 0 2px 2px 0;
+        position: absolute;
+        top: 1px;
+        left: 2px;
+        transform: rotate(45deg);
+    }
+
+
+
 /*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
 .btn {
     width: 100%;
@@ -120,7 +168,23 @@ placeholder {
     background-color: #FF7F50;
 }
 
-/*EMAIL ICON CSS-------------------------------------------------------------------------------*/
+.btn-green {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #439551;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-green:hover {
+        background-color: #589892;
+}
+
+/*ICON CSS-------------------------------------------------------------------------------*/
 .Icon {
     color: #f1a259;
     width: 100%;

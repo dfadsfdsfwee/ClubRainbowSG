@@ -3,6 +3,85 @@
     ViewBag.Title = "Event Home";
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dropdown Example</title>
+</head>
+<body>
+    <form method="post" class="form-group">
+        <h1>Welcome, John Doe</h1>
+
+        <h2>Choose an Event</h2>
+
+        @* SELECT AN EVENT SECTION *@
+        <div>
+            <label for="dropdown">Select an Option:</label>
+            @Html.DropDownList("dropdown", (IEnumerable<SelectListItem>)ViewBag.Options, "Please select", new { @class = "form-control", id = "dropdown" })
+        </div>
+    </form>
+    <form method="post" class="form-group">
+
+        @* DISPLAY EVENT SECTION *@
+        <div>
+            <div>
+                <h1>About This Event</h1>
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
+                </div>
+            </div>
+            <div>
+                <h1>Mobility Restrictions</h1>
+                <div>
+
+                </div>
+            </div>
+            <div>
+                <h1>Start Date</h1>
+                <div>
+                    Wednesday 23 oct, 2;30pm-3.30pm
+                </div>
+            </div>
+            <div>
+                <h1>End Date</h1>
+                <div>
+                    Wednesday 30 nov, 2;30pm-3.30pm
+                </div>
+            </div>
+            <div>
+                <h1>Venue</h1>
+                <div>
+                    Taman Jurong,Taman Jurong Zone A RC
+                </div>
+            </div>
+            <div>
+                <h1>Attire </h1>
+            </div>
+        </div>
+        @* FILL UP FORM *@
+        <div class="checkbox-group">
+            <label>
+                Option 1
+                <input type="checkbox" name="option" value="Option 1">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label>
+                Option 2
+                <input type="checkbox" name="option" value="Option 2">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label>
+                Option 3
+                <input type="checkbox" name="option" value="Option 3">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label>
+                Option 4
+                <input type="checkbox" name="option" value="Option 4">
+                <span class="custom-checkbox"></span>
+            </label>
+            <button class="btn-green" type="submit">Submit</button>
+        </div>
 @{
     var pcsNames = ViewBag.PCSNames as List<string>;
 }
