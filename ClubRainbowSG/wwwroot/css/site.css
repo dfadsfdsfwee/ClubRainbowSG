@@ -192,9 +192,7 @@ placeholder {
     width: 100%;
     text-align: center;
 }
-main{
-    height:100%;
-}
+
 footer {
     height: 50px; /* Footer height */
     background: #f8f9fa;
