@@ -1,25 +1,9 @@
 ﻿<h2>Welcome, student</h2>
-
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event Home</title>
-    <script>
-        function updateEventName() {
-            var pcsDropdown = document.getElementById("pcsDropdown");
-            var selectedOption = pcsDropdown.options[pcsDropdown.selectedIndex].text;
-            document.getElementById("eventName").innerText = selectedOption;
-        }
-    </script>
-</head>
-<body>
     <form method="post" class="form-group">
         <h1>Welcome, John Doe</h1>
 
         <h2>Choose an Event</h2>
 
-       
         @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
         {
             <select id="pcsDropdown" name="pcsDropdown" class="form-control">
@@ -79,25 +63,11 @@
             </label>
             <button class="btn-green" type="submit">Submit</button>
         </div>
-
-        
     </form>
-</body>
-</html>
-=======
-<h2>Choose an Event</h2>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dropdown Example</title>
-</head>
-<body>
+<h2>Choose an Event</h2>
     <form method="post">
         <label for="dropdown">Select an Option:</label>
         @Html.DropDownList("dropdown", (IEnumerable<SelectListItem>)ViewBag.Options, "Please select", new { @class = "form-control", id = "dropdown" })
         
     </form>
-</body>
-</html>
->>>>>>> parent of c30a9e2 (try)
