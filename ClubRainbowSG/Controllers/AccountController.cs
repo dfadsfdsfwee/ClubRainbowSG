@@ -10,7 +10,7 @@ namespace ClubRainbowSG.Controllers
             
         }
         [HttpPost]
-        
+        [ValidateAntiForgeryToken]
         public IActionResult Login(string email, string password)
         {
             

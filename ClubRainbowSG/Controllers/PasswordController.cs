@@ -12,12 +12,12 @@ namespace clubrainbow.Controllers
         {
             return View();
         }
-
+       // [HttpGet]
         public IActionResult newpassword()
         {
             return View();
         }
-
+        //[HttpPost]
         public IActionResult passwordchanged()
         {
             return View();
