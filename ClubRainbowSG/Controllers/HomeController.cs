@@ -44,7 +44,7 @@ namespace ClubRainbowSG.Controllers
             return Ok("Account added successfully");
         }
 
-        public IActionResult eventHome()
+        public IActionResult eventHome(string pcsDropdown)
         {
             var programmes = _context.TestProgrammes.ToList();
 
@@ -59,10 +59,11 @@ namespace ClubRainbowSG.Controllers
 
             // Log the fetched PCSnames
             Console.WriteLine("PCSNames fetched: " + string.Join(", ", pcsNames));
-
+            string eventName = string.IsNullOrEmpty(pcsDropdown) ? "" : pcsDropdown;
             // Passing data to View
             ViewBag.PCSNames = pcsNames;
-
+            
+            ViewBag.EventName = eventName;
             return View();
         }
 

@@ -1,88 +1,104 @@
-﻿@model ClubRainbowSG.Models.TestProgramme
-@{
-    ViewBag.Title = "Event Home";
-}
+﻿<form method="post" class="form-group">
+    <h1>Welcome, John Doe</h1>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event Home</title>
-    <script>
-        function updateEventName() {
-            var pcsDropdown = document.getElementById("pcsDropdown");
-            var selectedOption = pcsDropdown.options[pcsDropdown.selectedIndex].text;
-            document.getElementById("eventName").innerText = selectedOption;
-        }
-    </script>
-</head>
-<body>
-    <form method="post" class="form-group">
-        <h1>Welcome, John Doe</h1>
+    <h2>Choose an Event</h2>
 
-        <h2>Choose an Event</h2>
-
-       
-        @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
-        {
-            <select id="pcsDropdown" name="pcsDropdown" class="form-control">
-                @foreach (var pcsName in pcsNames)
+    @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
+    {
+        <select id="pcsDropdown" name="pcsDropdown" class="form-control">
+            <option value="">Select an event</option>
+            @foreach (var pcsName in pcsNames)
+            {
+                if (pcsName == ViewBag.EventName)
+                {
+                    <option value="@pcsName" selected>@pcsName</option>
+                }
+                else
                 {
                     <option value="@pcsName">@pcsName</option>
                 }
-            </select>
-        }
-        else
-        {
-            <p>No PCS names available.</p>
-        }
+            }
+        </select>
+    }
+    else
+    {
+        <p>No PCS names available.</p>
+    }
 
-        <!-- DISPLAY EVENT SECTION -->
-        <div>
-            <h1 id="eventName">Name of the event</h1>
-            <h1>About This Event</h1>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac.
-                Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
-            </p>
-            <h1>Mobility Restrictions</h1>
-            <p></p>
-            <h1>Start Date</h1>
-            <p>Wednesday 23 Oct, 2:30pm-3:30pm</p>
-            <h1>End Date</h1>
-            <p>Wednesday 30 Nov, 2:30pm-3:30pm</p>
-            <h1>Venue</h1>
-            <p>Taman Jurong, Taman Jurong Zone A RC</p>
-            <h1>Attire</h1>
-            <p></p>
-        </div>
+    <h1 id="eventNameHeader">@ViewBag.EventName</h1>
+    <h1 id="eventNameHeader">Event: @ViewBag.EventName</h1>
+    <h1>About This Event</h1>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac.
+        Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
+    </p>
+    <h1>Mobility Restrictions</h1>
+    <p></p>
+    <h1>Start Date</h1>
+    <p>Wednesday 23 Oct, 2:30pm-3:30pm</p>
+    <h1>End Date</h1>
+    <p>Wednesday 30 Nov, 2:30pm-3:30pm</p>
+    <h1>Venue</h1>
+    <p>Taman Jurong, Taman Jurong Zone A RC</p>
+    <h1>Attire</h1>
+    <!-- DISPLAY EVENT SECTION -->
+    @*<div>
+        <h1 id="eventNameHeader">Event: @ViewBag.EventName</h1>
+        <h1>About This Event</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac.
+            Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
+        </p>
+        <h1>Mobility Restrictions</h1>
+        <p></p>
+        <h1>Start Date</h1>
+        <p>Wednesday 23 Oct, 2:30pm-3:30pm</p>
+        <h1>End Date</h1>
+        <p>Wednesday 30 Nov, 2:30pm-3:30pm</p>
+        <h1>Venue</h1>
+        <p>Taman Jurong, Taman Jurong Zone A RC</p>
+        <h1>Attire</h1>
+        <p></p>
+    </div>*@
 
-        <!-- FILL UP FORM -->
-        <div class="checkbox-group">
-            <label>
-                Option 1
-                <input type="checkbox" name="option" value="Option 1">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label>
-                Option 2
-                <input type="checkbox" name="option" value="Option 2">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label>
-                Option 3
-                <input type="checkbox" name="option" value="Option 3">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label>
-                Option 4
-                <input type="checkbox" name="option" value="Option 4">
-                <span class="custom-checkbox"></span>
-            </label>
-            <button class="btn-green" type="submit">Submit</button>
-        </div>
+    <!-- FILL UP FORM -->
+    <div class="checkbox-group">
+        <label>
+            Option 1
+            <input type="checkbox" name="option" value="Option 1">
+            <span class="custom-checkbox"></span>
+        </label>
+        <label>
+            Option 2
+            <input type="checkbox" name="option" value="Option 2">
+            <span class="custom-checkbox"></span>
+        </label>
+        <label>
+            Option 3
+            <input type="checkbox" name="option" value="Option 3">
+            <span class="custom-checkbox"></span>
+        </label>
+        <label>
+            Option 4
+            <input type="checkbox" name="option" value="Option 4">
+            <span class="custom-checkbox"></span>
+        </label>
+        <button class="btn-green" type="submit">Submit</button>
+    </div>
+</form>
+<script>
+   
+    document.getElementById('pcsDropdown').addEventListener('change', function () {
+        var selectedEvent = this.value;
+        var eventHeader = document.getElementById('eventNameHeader');
 
         
-    </form>
-</body>
-</html>
+        if (selectedEvent) {
+            eventHeader.textContent = '' + selectedEvent;
+        } else {
+            eventHeader.textContent = 'Event: Name of the event';
+        }
+    });
+</script>
