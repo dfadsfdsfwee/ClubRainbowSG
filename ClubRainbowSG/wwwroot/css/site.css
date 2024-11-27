@@ -1,7 +1,8 @@
-html {
+html,body {
     font-family: Arial;
     margin: 0;
     padding: 0;
+    height:100%;
 }
 /*media query---------------------------------------------------------------------------------*/
 /*DESKTOP VERSION*/
@@ -154,15 +155,14 @@ placeholder {
 .btn {
     width: 100%;
     padding: 10px;
-    margin-top:10px;
-    background-color: blue;
+    margin-top: 10px;
+    background-color: #f1a259;
     color: #fff;
     border: none;
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
 }
 .btn:hover {
     background-color: #FF7F50;
@@ -190,7 +190,17 @@ placeholder {
     width: 100%;
     text-align: center;
 }
-.border-top footer text-muted{
-    background-color:cornflowerblue;
+main{
+    height:100%;
+}
+footer {
+    height: 50px; /* Adjust to your footer's height */
+    background: #f8f9fa; /* Footer background color */
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better separation */
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
