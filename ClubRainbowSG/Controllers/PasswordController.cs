@@ -18,15 +18,15 @@ namespace clubrainbow.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult passwordchanged(string newPW, string confPW)
+        public IActionResult newpassword(string newPW, string confPW)
         { var pw = "password do not match";
-            if(newPW==confPW){
-                 pw=newPW.ToString();
+            if(newPW==confPW&&(newPW!=null||confPW!=null)){
+                 pw=newPW!.ToString();
                 return View("PasswordChanged",pw);
             }
             else
             {
-                return View("newpassword", pw);
+                return View("newpassword",pw);
             }
             
            
