@@ -18,6 +18,10 @@ html, body {
     .Icon {
         font-size: 200px;
     }
+/*    .nav-icon {
+        width: 700px;
+        height: 400px;
+    }*/
 
 
 }
@@ -35,6 +39,10 @@ html, body {
     .Icon {
         font-size: 200px;
     }
+  /*  .nav-icon {
+        width: 500px;
+        height: auto; 
+    }*/
 
 }
 
@@ -49,6 +57,10 @@ html, body {
     .Icon {
         font-size: 120px;
     }
+  /*  .nav-icon {
+        width: 700px;
+        height: 400px;
+    }*/
 
 }
 
