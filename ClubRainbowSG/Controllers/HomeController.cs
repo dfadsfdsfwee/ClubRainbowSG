@@ -46,26 +46,54 @@ namespace ClubRainbowSG.Controllers
 
         public IActionResult eventHome(string pcsDropdown)
         {
-            var programmes = _context.TestProgrammes.ToList();
+            // Fetch all programmes
+            var programmes = _context.TestProgram.ToList();
 
-            // If no results, log this information
+            // Log if no programmes are found
             if (programmes == null || !programmes.Any())
             {
-                Console.WriteLine("No programmes found in the database.");
+                Debug.WriteLine("No programmes found in the database.");
+                return View(); // Return default view if no data
             }
 
-            // Extract PCSnames
-            var pcsNames = programmes.Select(p => p.PCSname).ToList();
+            // Log available PSCNames
+            var pscNames = programmes.Select(p => p.PSCName).ToList();
+            Debug.WriteLine("Available PSCNames: " + string.Join(", ", pscNames));
 
-            // Log the fetched PCSnames
-            Console.WriteLine("PCSNames fetched: " + string.Join(", ", pcsNames));
-            string eventName = string.IsNullOrEmpty(pcsDropdown) ? "" : pcsDropdown;
-            // Passing data to View
-            ViewBag.PCSNames = pcsNames;
-            
+            // Trim and normalize pcsDropdown
+            string eventName = string.IsNullOrEmpty(pcsDropdown) ? "" : pcsDropdown.Trim();
+            Debug.WriteLine("pcsDropdown Value: " + eventName);
+
+            // Find event details (case-insensitive and trim comparison)
+            var eventDetails = programmes
+                .FirstOrDefault(p => string.Equals(p.PSCName.Trim(), eventName, StringComparison.OrdinalIgnoreCase));
+
+            Debug.WriteLine("Event Details: " + (eventDetails != null ? "Found" : "Not Found"));
+
+            if (eventDetails != null)
+            {
+                ViewBag.StartDateTime = (eventDetails.StartDate + eventDetails.StartTime)
+                            .ToString("dddd dd MMM, hh:mm tt");
+
+                ViewBag.EndDateTime = (eventDetails.EndDate + eventDetails.EndTime)
+                                          .ToString("dddd dd MMM, hh:mm tt");
+                ViewBag.Description = eventDetails.Description;
+                ViewBag.Location = eventDetails.Location ?? "No location available.";
+                ViewBag.Attire = eventDetails.Attire ?? "No attire information available.";
+                ViewBag.NoOfSession = eventDetails.NumberOfSession.ToString() ?? "No session information available.";
+                ViewBag.Type = eventDetails.Type ?? "No Type information available.";
+            }
+            else
+            {
+                ViewBag.Description = "No description available.";
+            }
+
+            ViewBag.PSCNames = pscNames;
             ViewBag.EventName = eventName;
+
             return View();
         }
+
 
 
 

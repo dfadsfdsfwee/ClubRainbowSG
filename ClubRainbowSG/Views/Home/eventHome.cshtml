@@ -1,17 +1,19 @@
-﻿<form method="post" class="form-group">
+﻿<form method="post" action="/Home/eventHome" class="form-group">
+
     <h1>Welcome, John Doe</h1>
 
     <h2>Choose an Event</h2>
 
-    @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
+    @if (ViewBag.PSCNames is List<string> pscNames && pscNames.Any())
     {
-        <select id="pcsDropdown" name="pcsDropdown" class="form-control">
+        <select id="pcsDropdown" name="pcsDropdown" class="form-control" >
             <option value="">Select an event</option>
-            @foreach (var pcsName in pcsNames)
+            @foreach (var pcsName in pscNames)
             {
                 if (pcsName == ViewBag.EventName)
                 {
                     <option value="@pcsName" selected>@pcsName</option>
+
                 }
                 else
                 {
@@ -24,46 +26,59 @@
     {
         <p>No PCS names available.</p>
     }
+    <div>
+   @*
+        onchange="showEventDetails()"
+   @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
+    {
+        <select id="pcsDropdown" name="pcsDropdown" class="form-control" onchange="this.form.submit()">
+            <option value="">Select an event</option>
+            @foreach (var pcsName in pcsNames)
+            {
+                if (pcsName == ViewBag.EventName)
+                {
+                    <option value="@pcsName" selected>@($"{pcsName} [{ViewBag.NoOfSession}]")</option>
 
+                }
+                else
+                {
+                    <option value="@pcsName">@pcsName</option>
+                }
+            }
+        </select>
+    }
+    else
+    {
+        <p>No PCS names available.</p>
+    }*@
+    <br />
+        @*<div id="eventDetails" style="display: none;">*@
     <h1 id="eventNameHeader">@ViewBag.EventName</h1>
-    <h1 id="eventNameHeader">Event: @ViewBag.EventName</h1>
-    <h1>About This Event</h1>
+    
+    <br />
+            <img src="~/images/event1.jpg" alt="Home" class="nav-icon" width="700" height="400">
+        <br />  <br />
+          <h1>Type</h1>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac.
-        Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
+        @ViewBag.Type
     </p>
-    <h1>Mobility Restrictions</h1>
+    <h1>About This Event</h1>
+        <p>@ViewBag.Description</p>
+ 
+    
     <p></p>
     <h1>Start Date</h1>
-    <p>Wednesday 23 Oct, 2:30pm-3:30pm</p>
+            <p id="startDate">@ViewBag.StartDateTime</p>
     <h1>End Date</h1>
-    <p>Wednesday 30 Nov, 2:30pm-3:30pm</p>
+            <p id="endDate">@ViewBag.EndDateTime</p>
     <h1>Venue</h1>
-    <p>Taman Jurong, Taman Jurong Zone A RC</p>
+    <p>@ViewBag.Location @ViewBag.PscCode</p>
     <h1>Attire</h1>
-    <!-- DISPLAY EVENT SECTION -->
-    @*<div>
-        <h1 id="eventNameHeader">Event: @ViewBag.EventName</h1>
-        <h1>About This Event</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra dignissim ac ac ac.
-            Nibh et sed ac, eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Viverra dignissim ac ac ac. Nibh et sed ac, eget malesuada.
-        </p>
-        <h1>Mobility Restrictions</h1>
-        <p></p>
-        <h1>Start Date</h1>
-        <p>Wednesday 23 Oct, 2:30pm-3:30pm</p>
-        <h1>End Date</h1>
-        <p>Wednesday 30 Nov, 2:30pm-3:30pm</p>
-        <h1>Venue</h1>
-        <p>Taman Jurong, Taman Jurong Zone A RC</p>
-        <h1>Attire</h1>
-        <p></p>
-    </div>*@
-
+    <p>@ViewBag.Attire</p>
+    <hr>
     <!-- FILL UP FORM -->
+    <br />
+    <h1>people</h1>
     <div class="checkbox-group">
         <label>
             Option 1
@@ -87,13 +102,14 @@
         </label>
         <button class="btn-green" type="submit">Submit</button>
     </div>
+        </div>
 </form>
 <script>
    
     document.getElementById('pcsDropdown').addEventListener('change', function () {
         var selectedEvent = this.value;
         var eventHeader = document.getElementById('eventNameHeader');
-
+        this.form.submit();
         
         if (selectedEvent) {
             eventHeader.textContent = '' + selectedEvent;
@@ -101,4 +117,19 @@
             eventHeader.textContent = 'Event: Name of the event';
         }
     });
+
+    //function showEventDetails() {
+    //    var selectedEvent = document.getElementById('pcsDropdown').value;
+    //    var eventDetails = document.getElementById('eventDetails');
+    //    var eventHeader = document.getElementById('eventNameHeader');
+
+       
+    //    if (selectedEvent) {
+    //        eventDetails.style.display = 'block';
+    //        eventHeader.textContent = selectedEvent;
+    //    } else {
+    //        eventDetails.style.display = 'none';
+    //        eventHeader.textContent = 'Event: Name of the event';
+    //    }
+    //}
 </script>
