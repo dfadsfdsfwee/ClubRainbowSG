@@ -8,5 +8,14 @@ namespace ClubRainbowSG.Controllers
         {
             return View();
         }
+        public IActionResult cancelevent()
+        {
+            return View();
+        }
+
+        public IActionResult ticket()
+        {
+            return View();
+        }
     }
 }
