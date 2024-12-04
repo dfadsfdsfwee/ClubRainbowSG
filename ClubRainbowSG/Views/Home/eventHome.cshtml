@@ -56,9 +56,10 @@
     <h1 id="eventNameHeader">@ViewBag.EventName</h1>
     
     <br />
-            <img src="~/images/event1.jpg" alt="Home" class="nav-icon" width="700" height="400">
-        <br />  <br />
-          <h1>Type</h1>
+        <div class="HeroImg">
+            <img src="~/images/event1.jpg" alt="Home">
+      </div>
+     <h1>Type</h1>
     <p>
         @ViewBag.Type
     </p>
@@ -117,19 +118,4 @@
             eventHeader.textContent = 'Event: Name of the event';
         }
     });
-
-    //function showEventDetails() {
-    //    var selectedEvent = document.getElementById('pcsDropdown').value;
-    //    var eventDetails = document.getElementById('eventDetails');
-    //    var eventHeader = document.getElementById('eventNameHeader');
-
-       
-    //    if (selectedEvent) {
-    //        eventDetails.style.display = 'block';
-    //        eventHeader.textContent = selectedEvent;
-    //    } else {
-    //        eventDetails.style.display = 'none';
-    //        eventHeader.textContent = 'Event: Name of the event';
-    //    }
-    //}
 </script>
