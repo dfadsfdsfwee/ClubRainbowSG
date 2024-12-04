@@ -6,7 +6,7 @@
 
     @if (ViewBag.PSCNames is List<string> pscNames && pscNames.Any())
     {
-        <select id="pcsDropdown" name="pcsDropdown" class="form-control" >
+        <select id="pcsDropdown" name="pcsDropdown" class="form-control" onchange="showEventDetails()">
             <option value="">Select an event</option>
             @foreach (var pcsName in pscNames)
             {
@@ -26,33 +26,10 @@
     {
         <p>No PCS names available.</p>
     }
-    <div>
-   @*
-        onchange="showEventDetails()"
-   @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
-    {
-        <select id="pcsDropdown" name="pcsDropdown" class="form-control" onchange="this.form.submit()">
-            <option value="">Select an event</option>
-            @foreach (var pcsName in pcsNames)
-            {
-                if (pcsName == ViewBag.EventName)
-                {
-                    <option value="@pcsName" selected>@($"{pcsName} [{ViewBag.NoOfSession}]")</option>
-
-                }
-                else
-                {
-                    <option value="@pcsName">@pcsName</option>
-                }
-            }
-        </select>
-    }
-    else
-    {
-        <p>No PCS names available.</p>
-    }*@
+    
+  
     <br />
-        @*<div id="eventDetails" style="display: none;">*@
+    <div id="eventDetails" style="display: @(string.IsNullOrEmpty(ViewBag.EventName) ? "none" : "block");">
     <h1 id="eventNameHeader">@ViewBag.EventName</h1>
     
     <br />
@@ -109,7 +86,7 @@
    
     document.getElementById('pcsDropdown').addEventListener('change', function () {
         var selectedEvent = this.value;
-        var eventHeader = document.getElementById('eventNameHeader');
+       
         this.form.submit();
         
         if (selectedEvent) {
@@ -118,4 +95,22 @@
             eventHeader.textContent = 'Event: Name of the event';
         }
     });
+<<<<<<< HEAD
+=======
+
+    function showEventDetails() {
+        var selectedEvent = document.getElementById('pcsDropdown').value;
+        var eventDetails = document.getElementById('eventDetails');
+        var eventHeader = document.getElementById('eventNameHeader');
+
+       
+        if (selectedEvent) {
+            eventDetails.style.display = 'block';
+            eventHeader.textContent = selectedEvent;
+        } else {
+            eventDetails.style.display = 'none';
+            eventHeader.textContent = 'Event: Name of the event';
+        }
+    }
+>>>>>>> 4393b555a725f8ebc39e3433ebb6de154c23ab37
 </script>
