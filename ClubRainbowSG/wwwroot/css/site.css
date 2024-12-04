@@ -22,12 +22,31 @@ html, body {
         color: #fff; 
     }
 
-        .navbar .nav-link:hover {
-            color: #ff7f50; /* Hover effect */
-        }
+ .navbar .nav-link:hover {
+ color: #ff7f50; /* Hover effect */}
 
 body {
     padding-bottom: 70px; 
+}
+.main_division{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:1%;
+    padding-bottom:1%;
+    background-color: #f8f9fa;
+
+}
+
+.sub_division {
+    text-align: center;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    padding: 2%;  
+    margin-left: 15%;
+    margin-right: 15%;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
 }
 
 
@@ -193,21 +212,25 @@ placeholder {
         left: 2px;
         transform: rotate(45deg);
     }
-.HeroImg {
-    margin-left: auto;
-    margin-right: auto;
-    align-content:center;
-    padding:2%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
+    .HeroImg {
+        margin-left: auto;
+        margin-right: auto;
+        align-content:center;
+        padding:2%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
     .HeroImg img {
         max-width: 100%; 
         height: auto; 
         display: block;
     }
-    /*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
-    .btn {
+    #check-Mail-Message{
+        padding-left:10%;
+        padding-right:10%;
+    }
+/*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
+.btn {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
