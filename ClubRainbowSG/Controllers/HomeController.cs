@@ -91,7 +91,7 @@ namespace ClubRainbowSG.Controllers
             {
                 ViewBag.Description = "No description available.";
             }
-
+            ViewBag.fullname = HttpContext.Session.GetString("UserFullName");
             ViewBag.PSCNames = pscNames;
             ViewBag.EventName = eventName;
 
