@@ -28,7 +28,7 @@ namespace ClubRainbowSG.Models
 
         public TimeSpan EndTime { get; set; } 
 
-        public int NumberOfSession { get; set; }
+        public string? SessionDesc { get; set; }
 
         public int Frequency { get; set; } 
 

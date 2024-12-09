@@ -4,5 +4,13 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    @if (ViewBag.UserEmail != null)
+    {
+        <p>You are logged in as: @ViewBag.UserEmail</p>
+    }
+    else
+    {
+        <p>Please log in to access the site.</p>
+    }
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

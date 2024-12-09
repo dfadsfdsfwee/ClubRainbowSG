@@ -11,7 +11,7 @@ namespace clubrainbowSG.Data
         }
         public DbSet<User> Account { get; set; }
         public DbSet<TestProgramme> TestProgram { get; set; }
-       
+       public DbSet<Contacts> Contacts { get; set; }
     }
 
   

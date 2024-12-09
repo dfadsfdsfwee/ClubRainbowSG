@@ -17,6 +17,10 @@ namespace ClubRainbowSG.Controllers
 
         public IActionResult Index()
         {
+            var userEmail = HttpContext.Session.GetString("UserFullName");
+
+            // Pass session data to ViewBag
+            ViewBag.UserEmail = userEmail;
             return View();
         }
 
@@ -80,7 +84,7 @@ namespace ClubRainbowSG.Controllers
                 ViewBag.Description = eventDetails.Description;
                 ViewBag.Location = eventDetails.Location ?? "No location available.";
                 ViewBag.Attire = eventDetails.Attire ?? "No attire information available.";
-                ViewBag.NoOfSession = eventDetails.NumberOfSession.ToString() ?? "No session information available.";
+                ViewBag.NoOfSession = eventDetails.SessionDesc ?? "No session information available.";
                 ViewBag.Type = eventDetails.Type ?? "No Type information available.";
             }
             else

@@ -1,4 +1,5 @@
 ﻿
+@model ClubRainbowSG.Models.LoginVM
 @{
     ViewData["Title"] = "Login";
 }
@@ -11,12 +12,14 @@
     </div>
     <div class="form-div-groups">
         <label for="email">Email</label><br>
-        <input type="text" id="email" name="email" class="form-container" placeholder="Your Email"/>
+        <input type="text" id="email" name="email" class="form-container" placeholder="Your Email" asp-for="Email"/>
+        <span asp-validation-for="Email"></span>
     </div>
       
     <div class="form-div-groups">
         <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" class="form-container" placeholder="Your Password" />
+        <input type="password" id="password" name="password" class="form-container" placeholder="Your Password"asp-for="Password" />
+        <span asp-validation-for="Password"></span>
     </div>
     <div class="form-div-groups">
         <a href="@Url.Action("ResetPassword", "Password")">Forget Password?</a>
