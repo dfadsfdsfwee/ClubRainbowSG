@@ -6,7 +6,7 @@
 
     @if (ViewBag.PSCNames is List<string> pscNames && pscNames.Any())
     {
-        <select id="pcsDropdown" name="pcsDropdown" class="form-control" >
+        <select id="pcsDropdown" name="pcsDropdown" class="form-control" onchange="showEventDetails()">
             <option value="">Select an event</option>
             @foreach (var pcsName in pscNames)
             {
@@ -26,39 +26,17 @@
     {
         <p>No PCS names available.</p>
     }
-    <div>
-   @*
-        onchange="showEventDetails()"
-   @if (ViewBag.PCSNames is List<string> pcsNames && pcsNames.Any())
-    {
-        <select id="pcsDropdown" name="pcsDropdown" class="form-control" onchange="this.form.submit()">
-            <option value="">Select an event</option>
-            @foreach (var pcsName in pcsNames)
-            {
-                if (pcsName == ViewBag.EventName)
-                {
-                    <option value="@pcsName" selected>@($"{pcsName} [{ViewBag.NoOfSession}]")</option>
-
-                }
-                else
-                {
-                    <option value="@pcsName">@pcsName</option>
-                }
-            }
-        </select>
-    }
-    else
-    {
-        <p>No PCS names available.</p>
-    }*@
+    
+  
     <br />
-        @*<div id="eventDetails" style="display: none;">*@
+    <div id="eventDetails" style="display: @(string.IsNullOrEmpty(ViewBag.EventName) ? "none" : "block");">
     <h1 id="eventNameHeader">@ViewBag.EventName</h1>
     
     <br />
-            <img src="~/images/event1.jpg" alt="Home" class="nav-icon" width="700" height="400">
-        <br />  <br />
-          <h1>Type</h1>
+        <div class="HeroImg">
+            <img src="~/images/event1.jpg" alt="Home">
+      </div>
+     <h1>Type</h1>
     <p>
         @ViewBag.Type
     </p>
@@ -77,8 +55,8 @@
     <p>@ViewBag.Attire</p>
     <hr>
     <!-- FILL UP FORM -->
-    <br />
-    <h1>people</h1>
+    
+    <h1>People</h1>
     <div class="checkbox-group">
         <label>
             Option 1
@@ -108,7 +86,7 @@
    
     document.getElementById('pcsDropdown').addEventListener('change', function () {
         var selectedEvent = this.value;
-        var eventHeader = document.getElementById('eventNameHeader');
+       
         this.form.submit();
         
         if (selectedEvent) {
@@ -118,18 +96,19 @@
         }
     });
 
-    //function showEventDetails() {
-    //    var selectedEvent = document.getElementById('pcsDropdown').value;
-    //    var eventDetails = document.getElementById('eventDetails');
-    //    var eventHeader = document.getElementById('eventNameHeader');
+
+    function showEventDetails() {
+        var selectedEvent = document.getElementById('pcsDropdown').value;
+        var eventDetails = document.getElementById('eventDetails');
+        var eventHeader = document.getElementById('eventNameHeader');
 
        
-    //    if (selectedEvent) {
-    //        eventDetails.style.display = 'block';
-    //        eventHeader.textContent = selectedEvent;
-    //    } else {
-    //        eventDetails.style.display = 'none';
-    //        eventHeader.textContent = 'Event: Name of the event';
-    //    }
-    //}
+        if (selectedEvent) {
+            eventDetails.style.display = 'block';
+            eventHeader.textContent = selectedEvent;
+        } else {
+            eventDetails.style.display = 'none';
+            eventHeader.textContent = 'Event: Name of the event';
+        }
+    }
 </script>

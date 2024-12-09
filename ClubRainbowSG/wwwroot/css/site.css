@@ -5,6 +5,50 @@ html, body {
     height: 100%;
     
 }
+.navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; 
+    background-color: orange; 
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+    .navbar .navbar-brand,
+    .navbar .nav-link {
+        text-align: center;
+        color: #fff; 
+    }
+
+ .navbar .nav-link:hover {
+ color: #ff7f50; /* Hover effect */}
+
+body {
+    padding-bottom: 70px; 
+}
+.main_division{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:1%;
+    padding-bottom:1%;
+    background-color: #f8f9fa;
+
+}
+
+.sub_division {
+    text-align: center;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    padding: 2%;  
+    margin-left: 15%;
+    margin-right: 15%;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+}
+
 
 /*media query---------------------------------------------------------------------------------*/
 /*DESKTOP VERSION*/
@@ -18,10 +62,6 @@ html, body {
     .Icon {
         font-size: 200px;
     }
-/*    .nav-icon {
-        width: 700px;
-        height: 400px;
-    }*/
 
 
 }
@@ -39,17 +79,20 @@ html, body {
     .Icon {
         font-size: 200px;
     }
-  /*  .nav-icon {
-        width: 500px;
-        height: auto; 
-    }*/
+    h1 {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 12px;
+    }
 
 }
 
 /*Mobile Version*/
 @media( max-width:600px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
     }
     .form-div-groups {
         margin-bottom: 3%;
@@ -57,16 +100,23 @@ html, body {
     .Icon {
         font-size: 120px;
     }
-  /*  .nav-icon {
-        width: 700px;
-        height: 400px;
-    }*/
+    h1 {
+        font-size: 16px;
+    }
+
+    h2 {
+        font-size: 12px;
+    }
 
 }
 
 
 .container-fluid {
-    background-color: orange;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 
@@ -162,9 +212,23 @@ placeholder {
         left: 2px;
         transform: rotate(45deg);
     }
-
-
-
+    .HeroImg {
+        margin-left: auto;
+        margin-right: auto;
+        align-content:center;
+        padding:2%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .HeroImg img {
+        max-width: 100%; 
+        height: auto; 
+        display: block;
+    }
+    #check-Mail-Message{
+        padding-left:10%;
+        padding-right:10%;
+    }
 /*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
 .btn {
     width: 100%;
@@ -180,6 +244,7 @@ placeholder {
 }
 .btn:hover {
     background-color: #FF7F50;
+    color: #fff;
 }
 
 .btn-green {
