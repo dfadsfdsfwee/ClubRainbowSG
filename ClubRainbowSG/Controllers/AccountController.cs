@@ -67,5 +67,21 @@ namespace ClubRainbowSG.Controllers
             // Redirect to home or desired page
             return RedirectToAction("eventHome", "Home");
         }
+        
+        public IActionResult Logout()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult Logoutuser()
+        {
+
+            HttpContext.Session.Clear();
+
+            // Redirect to login page or home page
+            return RedirectToAction("Login", "Account");
+        }
     }
 }
