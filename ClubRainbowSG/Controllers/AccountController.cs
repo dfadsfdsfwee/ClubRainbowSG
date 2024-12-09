@@ -17,8 +17,6 @@ namespace ClubRainbowSG.Controllers
         public AccountController(ApplicationDbContext context)
         {
             _context = context;
-           /* _signInManager = signInManager;
-            _userManager = userManager;*/
         }
         public IActionResult Login()
         {
@@ -47,7 +45,7 @@ namespace ClubRainbowSG.Controllers
             HttpContext.Session.SetString("UserID", user.AccountID);
             HttpContext.Session.SetString("Usersalutation", user.Salutation??string.Empty);
             HttpContext.Session.SetString("Usersaluteonly", user.SalutationOnly ?? string.Empty);
-            HttpContext.Session.SetString("UserFullName", user.FullName);
+            HttpContext.Session.SetString("UserFullName", user.FullName!);
             HttpContext.Session.SetString("Usertitle", user.Title ?? string.Empty);
             HttpContext.Session.SetString("Userst", user.MailingStreet ?? string.Empty);
             HttpContext.Session.SetString("Usercity", user.MailingCity ?? string.Empty);
@@ -57,7 +55,7 @@ namespace ClubRainbowSG.Controllers
             HttpContext.Session.SetString("Userphone", user.Phone ?? string.Empty);
             HttpContext.Session.SetString("Usermobile", user.Mobile.ToString() ?? string.Empty);
             HttpContext.Session.SetString("Userfax", user.Fax ?? string.Empty);
-            HttpContext.Session.SetString("UserEmail", user.Email);
+            HttpContext.Session.SetString("UserEmail", user.Email!);
             HttpContext.Session.SetString("Userowner", user.AccountOwner ?? string.Empty);
             HttpContext.Session.SetString("Userg1", user.Guardian_1 ?? string.Empty);
             HttpContext.Session.SetString("Userg2", user.Guardian_2 ?? string.Empty);
