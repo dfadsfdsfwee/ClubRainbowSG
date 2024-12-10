@@ -3,26 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ClubRainbowSG.Models
 {
-    [Table("Contact")]
+    [Table("Contacts")]
     public class Contacts
     {
+        
+        //public string AccountID {  get; set; }
+        public int? salutation { get; set; }
+        public string? salutation_Only { get; set; }
+        public string? full_name { get; set; }
+        public string? title { get; set; }
+        public string? mailing_street { get; set; }
+        public string? mailing_city { get; set; }
+        public string? mailing_state_provence { get; set; }
+        public string? mailing_zip_postal{ get; set; }
+        public string? mailing_country { get; set; }
+        public string? phone { get; set; }
+        public int? mobile { get; set; }
+        public int? fax { get; set; }
+        public string? email { get; set; }
+        public string? account_owner { get; set; }
         [Key]
-        public string AccountID {  get; set; }
-        public string? Salutation { get; set; }
-        public string?SalutationOnly { get; set; }
-        public string? FullName { get; set; }
-        public string? Title { get; set; }
-        public string? MailingStreet { get; set; }
-        public string? MailingCity { get; set; }
-        public string? MailingState_Province { get; set; }
-        public string? MailingZip_PostalCode { get; set; }
-        public string? MailingCountry { get; set; }
-        public string? Phone { get; set; }
-        public int? Mobile { get; set; }
-        public string? Fax { get; set; }
-        public string? Email { get; set; }
-        public string? AccountOwner { get; set; }
-        public string? Password { get; set; }
+        public string account_name { get; set; }
+        public string? hashed_password { get; set; }
         public string? Guardian_1 { get; set; }
         public string? Guardian_2 { get; set; }
         public string? Guardian_3 { get; set; }

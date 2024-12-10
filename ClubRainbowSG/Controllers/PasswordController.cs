@@ -42,7 +42,14 @@ namespace clubrainbow.Controllers
                 return View();
             }
             var token=GenerateTemporaryToken();
-            
+            var user = await _context.Contacts
+                .FirstOrDefaultAsync(c => c.email == email);
+
+            if (user == null) // Replace with hashing logic
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View();
+            }
             var client = new HttpClient();
             var url = "https://prod-00.southeastasia.logic.azure.com:443/workflows/d1f92f299d004c37860b82778ad85252/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ZK1wX5eTgJNhQ1feYfnZAMFq8M3cej7Hlkj_7sEZweY";
             var payload = new
@@ -75,8 +82,9 @@ namespace clubrainbow.Controllers
 
         public IActionResult newpassword(string email,string token )
         {
-            ViewBag.encrypted = token;//??HttpContext.Session.GetString("forpasschange");
-            //ViewBag.email = email;
+            ViewBag.encrypted = token;//??
+            ViewBag.email = email;
+            ViewBag.checktoken=HttpContext.Session.GetString("forpasschange");
             return View();
         }
         [HttpPost]
@@ -87,7 +95,7 @@ namespace clubrainbow.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var user = await _context.Contacts.FirstOrDefaultAsync(c => c.Email == email);
+            var user = await _context.Contacts.FirstOrDefaultAsync(c => c.email == email);
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -97,7 +105,7 @@ namespace clubrainbow.Controllers
                 ModelState.AddModelError("matchPassword", "New password and confirm password do not match.");
                 return View();
             }
-            user.Password = newPW; // Update password (consider hashing it before saving)
+            user.hashed_password = newPW; // Update password (consider hashing it before saving)
             await _context.SaveChangesAsync();
             return RedirectToAction("Login", "Account");
         }
