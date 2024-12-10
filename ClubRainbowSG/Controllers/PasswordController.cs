@@ -2,6 +2,7 @@
 using ClubRainbowSG.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace clubrainbow.Controllers
 {
