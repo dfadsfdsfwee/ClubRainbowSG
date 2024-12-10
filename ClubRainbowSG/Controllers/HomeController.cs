@@ -61,7 +61,7 @@ namespace ClubRainbowSG.Controllers
             }
 
             // Log available PSCNames
-            var pscNames = programmes.Select(p => p.PSCName).ToList();
+            var pscNames = programmes.Select(p => p.pcsname).ToList();
             Debug.WriteLine("Available PSCNames: " + string.Join(", ", pscNames));
 
             // Trim and normalize pcsDropdown
@@ -70,22 +70,18 @@ namespace ClubRainbowSG.Controllers
 
             // Find event details (case-insensitive and trim comparison)
             var eventDetails = programmes
-                .FirstOrDefault(p => string.Equals(p.PSCName.Trim(), eventName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(p => string.Equals(p.pcsname.Trim(), eventName, StringComparison.OrdinalIgnoreCase));
 
             Debug.WriteLine("Event Details: " + (eventDetails != null ? "Found" : "Not Found"));
 
             if (eventDetails != null)
             {
-                ViewBag.StartDateTime = (eventDetails.StartDate + eventDetails.StartTime)
-                            .ToString("dddd dd MMM, hh:mm tt");
-
-                ViewBag.EndDateTime = (eventDetails.EndDate + eventDetails.EndTime)
-                                          .ToString("dddd dd MMM, hh:mm tt");
-                ViewBag.Description = eventDetails.Description;
-                ViewBag.Location = eventDetails.Location ?? "No location available.";
-                ViewBag.Attire = eventDetails.Attire ?? "No attire information available.";
-                ViewBag.NoOfSession = eventDetails.SessionDesc ?? "No session information available.";
-                ViewBag.Type = eventDetails.Type ?? "No Type information available.";
+                
+                ViewBag.Description = eventDetails.description;
+                ViewBag.Location = eventDetails.location ?? "No location available.";
+                ViewBag.Attire = eventDetails.attire ?? "No attire information available.";
+                
+                ViewBag.Type = eventDetails.type ?? "No Type information available.";
             }
             else
             {

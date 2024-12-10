@@ -9,41 +9,22 @@ namespace ClubRainbowSG.Models
     {
 
         [Key]
-        public int PSCCode { get; set; }
-        public string? PSCName { get; set; } 
-
-        public string? Type { get; set; } 
-
-        public string? OtherType { get; set; }
-
-        public string? ProgramGroupAge { get; set; }
-
-        public string? OtherAgeGroup { get; set; }
-
-        public DateTime StartDate { get; set; } 
-
-        public DateTime EndDate { get; set; } 
-
-        public TimeSpan StartTime { get; set; } 
-
-        public TimeSpan EndTime { get; set; } 
-
-        public string? SessionDesc { get; set; }
-
-        public int Frequency { get; set; } 
-
-        public int? CapacityPerSession { get; set; } 
-
-        public int? ProgramStatus { get; set; } 
-
-        public string? Location { get; set; } 
-
-        
-        public string? Description { get; set; } 
-
-        public string? Attire { get; set; } // Matches [Attire]
-
-        public int? TicketCount { get; set; } // Matches [TicketCount]
+        public int pcscode { get; set; }
+        public string? pcsname { get; set; }
+        public string type { get; set; } = string.Empty;
+        public string? other_type { get; set; }
+        public string? age_group { get; set; }
+        public string? other_age_group { get; set; }
+        public DateTime start_date_time { get; set; }
+        public DateTime end_date_time { get; set; }
+        public string session_name { get; set; } = string.Empty;
+        public int frequency { get; set; }
+        public int capacity { get; set; }
+        public int programme_status { get; set; }
+        public string location { get; set; } = string.Empty;
+        public string attire { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
+        public int ticket_issused { get; set; }
     }
 }
 
