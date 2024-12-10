@@ -32,9 +32,9 @@ namespace ClubRainbowSG.Controllers
                 return View(loginvm);
 
             var user = await _context.Contacts
-                .FirstOrDefaultAsync(c => c.Email == loginvm.Email);
+                .FirstOrDefaultAsync(c => c.email == loginvm.Email);
 
-            if (user == null || user.Password != loginvm.Password) // Replace with hashing logic
+            if (user == null || user.hashed_password != loginvm.Password) // Replace with hashing logic
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(loginvm);
@@ -42,25 +42,26 @@ namespace ClubRainbowSG.Controllers
 
 
             // Store user information in the session
-            HttpContext.Session.SetString("UserID", user.AccountID);
-            HttpContext.Session.SetString("Usersalutation", user.Salutation??string.Empty);
-            HttpContext.Session.SetString("Usersaluteonly", user.SalutationOnly ?? string.Empty);
-            HttpContext.Session.SetString("UserFullName", user.FullName!);
-            HttpContext.Session.SetString("Usertitle", user.Title ?? string.Empty);
-            HttpContext.Session.SetString("Userst", user.MailingStreet ?? string.Empty);
-            HttpContext.Session.SetString("Usercity", user.MailingCity ?? string.Empty);
-            HttpContext.Session.SetString("Userstate", user.MailingState_Province ?? string.Empty);
-            HttpContext.Session.SetString("Userpostal", user.MailingZip_PostalCode ?? string.Empty);
-            HttpContext.Session.SetString("Usercountry", user.MailingCountry ?? string.Empty);
-            HttpContext.Session.SetString("Userphone", user.Phone ?? string.Empty);
-            HttpContext.Session.SetString("Usermobile", user.Mobile.ToString() ?? string.Empty);
-            HttpContext.Session.SetString("Userfax", user.Fax ?? string.Empty);
-            HttpContext.Session.SetString("UserEmail", user.Email!);
-            HttpContext.Session.SetString("Userowner", user.AccountOwner ?? string.Empty);
-            HttpContext.Session.SetString("Userg1", user.Guardian_1 ?? string.Empty);
-            HttpContext.Session.SetString("Userg2", user.Guardian_2 ?? string.Empty);
-            HttpContext.Session.SetString("Userg3", user.Guardian_3 ?? string.Empty);
-            HttpContext.Session.SetString("Userg4", user.Guardian_4 ?? string.Empty);
+           
+            HttpContext.Session.SetString("Usersalutation", user.salutation.ToString() ?? string.Empty);
+            HttpContext.Session.SetString("Usersaluteonly", user.salutation_only ?? string.Empty);
+            HttpContext.Session.SetString("UserFullName", user.full_name!);
+            HttpContext.Session.SetString("Usertitle", user.title ?? string.Empty);
+            HttpContext.Session.SetString("Userst", user.mailing_street ?? string.Empty);
+            HttpContext.Session.SetString("Usercity", user.mailing_City ?? string.Empty);
+            
+            HttpContext.Session.SetString("Userpostal", user.mailing_zip_postal ?? string.Empty);
+            HttpContext.Session.SetString("Usercountry", user.mailing_country ?? string.Empty);
+            HttpContext.Session.SetString("Userphone", user.phone ?? string.Empty);
+            HttpContext.Session.SetString("Usermobile", user.mobile?.ToString() ?? string.Empty);
+            HttpContext.Session.SetString("Userfax", user.fax?.ToString() ?? string.Empty);
+            HttpContext.Session.SetString("UserEmail", user.email!);
+            HttpContext.Session.SetString("Userowner", user.account_owner ?? string.Empty);
+            HttpContext.Session.SetString("Useraccountname", user.account_name ?? string.Empty);
+            HttpContext.Session.SetString("Userg1", user.guardian_1 ?? string.Empty);
+            HttpContext.Session.SetString("Userg2", user.guardian_2 ?? string.Empty);
+            HttpContext.Session.SetString("Userg3", user.guardian_3 ?? string.Empty);
+            HttpContext.Session.SetString("Userg4", user.guardian_4 ?? string.Empty);
 
             // Redirect to home or desired page
             return RedirectToAction("eventHome", "Home");

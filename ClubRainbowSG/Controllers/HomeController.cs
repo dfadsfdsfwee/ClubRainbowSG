@@ -50,9 +50,10 @@ namespace ClubRainbowSG.Controllers
 
         public IActionResult eventHome(string pcsDropdown)
         {
+            
             // Fetch all programmes
             var programmes = _context.TestProgram.ToList();
-
+            Console.WriteLine(programmes);
             // Log if no programmes are found
             if (programmes == null || !programmes.Any())
             {
@@ -76,7 +77,11 @@ namespace ClubRainbowSG.Controllers
 
             if (eventDetails != null)
             {
-                
+                ViewBag.StartDateTime = (eventDetails.start_date_time)
+                            .ToString("dddd dd MMM, hh:mm tt");
+
+                ViewBag.EndDateTime = (eventDetails.end_date_time)
+                                          .ToString("dddd dd MMM, hh:mm tt");
                 ViewBag.Description = eventDetails.description;
                 ViewBag.Location = eventDetails.location ?? "No location available.";
                 ViewBag.Attire = eventDetails.attire ?? "No attire information available.";
@@ -87,7 +92,12 @@ namespace ClubRainbowSG.Controllers
             {
                 ViewBag.Description = "No description available.";
             }
+
             ViewBag.fullname = HttpContext.Session.GetString("UserFullName");
+            ViewBag.Userg1 = HttpContext.Session.GetString("Userg1");
+            ViewBag.Userg2 = HttpContext.Session.GetString("Userg2");
+            ViewBag.Userg3 = HttpContext.Session.GetString("Userg3");
+            ViewBag.Userg4 = HttpContext.Session.GetString("Userg4");
             ViewBag.PSCNames = pscNames;
             ViewBag.EventName = eventName;
 

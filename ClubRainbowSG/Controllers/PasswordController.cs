@@ -62,7 +62,7 @@ namespace clubrainbow.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            var user = await _context.Contacts.FirstOrDefaultAsync(c => c.Email == email);
+            var user = await _context.Contacts.FirstOrDefaultAsync(c => c.email == email);
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
@@ -72,7 +72,7 @@ namespace clubrainbow.Controllers
                 ModelState.AddModelError("matchPassword", "New password and confirm password do not match.");
                 return View();
             }
-            user.Password = newPW; // Update password (consider hashing it before saving)
+            user.hashed_password = newPW; 
             await _context.SaveChangesAsync();
             return RedirectToAction("Login", "Account");
         }

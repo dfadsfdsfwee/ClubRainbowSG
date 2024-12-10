@@ -1,7 +1,7 @@
-﻿<form method="post" action="/Home/eventHome" class="form-group">
+﻿
+<form method="post" action="/Home/eventHome" class="form-group">
 
     <h1>Welcome, @ViewBag.fullname</h1>
-
     <h2>Choose an Event</h2>
 
     @if (ViewBag.PSCNames is List<string> pscNames && pscNames.Any())
@@ -26,7 +26,7 @@
     {
         <p>No PCS names available.</p>
     }
-    
+   
   
     <br />
     <div id="eventDetails" style="display: @(string.IsNullOrEmpty(ViewBag.EventName) ? "none" : "block");">
@@ -57,29 +57,28 @@
     <!-- FILL UP FORM -->
     
     <h1>People</h1>
-    <div class="checkbox-group">
-        <label>
-            Option 1
-            <input type="checkbox" name="option" value="Option 1">
-            <span class="custom-checkbox"></span>
-        </label>
-        <label>
-            Option 2
-            <input type="checkbox" name="option" value="Option 2">
-            <span class="custom-checkbox"></span>
-        </label>
-        <label>
-            Option 3
-            <input type="checkbox" name="option" value="Option 3">
-            <span class="custom-checkbox"></span>
-        </label>
-        <label>
-            Option 4
-            <input type="checkbox" name="option" value="Option 4">
-            <span class="custom-checkbox"></span>
-        </label>
-        <button class="btn-green" type="submit">Submit</button>
-    </div>
+        <div class="checkbox-group">
+            <label id="label1">
+                @ViewBag.Userg1
+                <input type="checkbox" name="option" value="Option 1">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label id="label2">
+                @ViewBag.Userg2
+                <input type="checkbox" name="option" value="Option 2">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label id="label3">
+                @ViewBag.Userg3
+                <input type="checkbox" name="option" value="Option 3">
+                <span class="custom-checkbox"></span>
+            </label>
+            <label id="label4">
+                @ViewBag.Userg4
+                <input type="checkbox" name="option" value="Option 4">
+                <span class="custom-checkbox"></span>
+            </label>
+            <button class="btn-green" type="submit">Submit</button>
         </div>
 </form>
 <script>
@@ -111,4 +110,23 @@
             eventHeader.textContent = 'Event: Name of the event';
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        
+        const labels = [
+            { id: "label1", content: "@ViewBag.Userg1" },
+            { id: "label2", content: "@ViewBag.Userg2" },
+            { id: "label3", content: "@ViewBag.Userg3" },
+            { id: "label4", content: "@ViewBag.Userg4" }
+        ];
+
+        labels.forEach(label => {
+            if (!label.content.trim()) { 
+                const element = document.getElementById(label.id);
+                if (element) {
+                    element.style.display = "none"; 
+                }
+            }
+        });
+    });
 </script>
