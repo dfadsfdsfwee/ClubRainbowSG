@@ -2,4 +2,13 @@
 @model ClubRainbowSG.Views.Event.canceleventModel
 @{
 }
-<h1>Cancellation</h1>
+	<div class="sub_division">
+	<div class="Icon">&#128712;</div>
+		<h1>CANCELLATION!</h1>
+		<h2>Are you sure you want to cancel your booking?</h2>
+		<br />
+		<div>
+			<a class="btn-red" href="@Url.Action("login", "Account")">Cancel Booking</a>
+			<a class="btn" href="@Url.Action("login", "Account")">Keep Booking</a>
+		</div>
+	</div>
