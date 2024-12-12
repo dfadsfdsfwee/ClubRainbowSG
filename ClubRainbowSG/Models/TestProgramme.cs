@@ -9,7 +9,7 @@ namespace ClubRainbowSG.Models
     {
 
         [Key]
-        public int pcscode { get; set; }
+        public string pcscode { get; set; }
         public string? pcsname { get; set; }
         public string type { get; set; } = string.Empty;
         public string? other_type { get; set; }

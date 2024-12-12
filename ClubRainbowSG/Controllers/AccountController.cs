@@ -63,7 +63,7 @@ namespace ClubRainbowSG.Controllers
             HttpContext.Session.SetString("Userg4", user.Guardian_4 ?? string.Empty);
 
             // Redirect to home or desired page
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("eventHome", "Home");
         }
         
         public IActionResult Logout()
