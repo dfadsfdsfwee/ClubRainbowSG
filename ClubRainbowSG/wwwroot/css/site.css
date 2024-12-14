@@ -107,7 +107,6 @@ body {
     h2 {
         font-size: 12px;
     }
-
 }
 
 
@@ -117,6 +116,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
+    padding:0px 10%;
 }
 
 
@@ -138,11 +138,71 @@ h2{
     text-align:center;
 }
 /*FORM CSS SECTION---------------------------------------------------------------------------------*/
+.form-ticket-group {
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5% 10%;
+    text-align: center;
+}
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top:5%;
+    margin-bottom:5%;   
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+    /* Hide default checkbox */
+    .checkbox-item input[type="checkbox"] {
+        display: none;
+    }
+
+/* Custom checkbox */
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f1a259;
+    display: inline-block;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Checkbox checked state */
+.checkbox-item input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: #f1a259;
+    border-color: #f1a259;
+}
+
+    .checkbox-item input[type="checkbox"]:checked + .checkbox-custom::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border: 2px solid white;
+        border-width: 0 2px 2px 0;
+        position: absolute;
+        top: 2px;
+        left: 5px;
+        transform: rotate(45deg);
+    }
+/*     */
 .form-group {
     align-content: center;
     margin-left: auto;
     margin-right: auto;
-    padding: 10%;
+    padding: 5% 10%;
+
 }
 /*INPUT TEXTBOX CSS*/
 input {
@@ -258,10 +318,34 @@ placeholder {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: block;
+    box-sizing: border-box;
 }
-.btn-green:hover {
+    .btn-green:hover {
         background-color: #589892;
+        color: #fff;
+    }
+
+.btn-red {
+    background-color: #ba2d32;
+    text-decoration: none;
+    padding: 10px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+
+    .btn-red:hover {
+        background-color: #D1292F;
+        color: #fff;
+    }
 
 /*ICON CSS-------------------------------------------------------------------------------*/
 .Icon {

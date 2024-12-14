@@ -107,7 +107,7 @@ namespace clubrainbow.Controllers
             }
             user.hashed_password = newPW; // Update password (consider hashing it before saving)
             await _context.SaveChangesAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("passwordchanged", "Password");
         }
 
         public IActionResult passwordchanged()
