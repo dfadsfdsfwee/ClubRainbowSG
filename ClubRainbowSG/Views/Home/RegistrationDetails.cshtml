@@ -1,0 +1,91 @@
+﻿
+<form id="registrationForm" action="/Home/RegistrationDetails" method="POST">
+
+<h1>Registration Details</h1>
+<p><strong>Programme PCS Code:</strong> @ViewBag.PCSCode</p>
+    <input type="hidden" name="ProgrammePCS_FK" value="@ViewBag.PCSCode" />
+<p><strong>Contact FK:</strong> @ViewBag.Useraccountname</p>
+    <input type="hidden" name="ContactFK" value="@ViewBag.Useraccountname" />
+
+    <p><strong>Programme Session Name:</strong>@ViewBag.session_name</p>
+    <input type="hidden" name="ProgrammeSession_Name_FK" value="@ViewBag.session_name" />
+
+    <p><strong>Ticket Count:</strong><span id="ticketCount">1</span></p>
+    <input type="hidden" id="HiddenTicketCount" name="TicketCount" value="1">
+
+
+<h1>People</h1>
+<div class="checkbox-group" id="checkboxGroup">
+    <label id="label1">
+        @ViewBag.Userg1
+        <input type="checkbox" name="option" value="Option 1" onchange="updateTicketCount()">
+        <span class="custom-checkbox"></span>
+    </label>
+    <label id="label2">
+        @ViewBag.Userg2
+        <input type="checkbox" name="option" value="Option 2" onchange="updateTicketCount()">
+        <span class="custom-checkbox"></span>
+    </label>
+    <label id="label3">
+        @ViewBag.Userg3
+        <input type="checkbox" name="option" value="Option 3" onchange="updateTicketCount()">
+        <span class="custom-checkbox"></span>
+    </label>
+    <label id="label4">
+        @ViewBag.Userg4
+        <input type="checkbox" name="option" value="Option 4" onchange="updateTicketCount()">
+        <span class="custom-checkbox"></span>
+    </label>
+        <button type="submit" class="btn-green">Submit</button>
+</div>
+
+</form>
+
+
+<script>
+    //document.querySelector('.btn-green').addEventListener('click', function () {
+    //    const pcsCode = document.getElementsByName('ProgrammePCS_FK')[0].value;
+    //    const sessionName = document.getElementsByName('ProgrammeSessionName_FK')[0].value;
+    //    const contactFK = document.getElementsByName('ContactFK')[0].value;
+
+    //    console.log("ProgrammePCS_FK:", pcsCode);
+    //    console.log("ProgrammeSessionName_FK:", sessionName);
+    //    console.log("ContactFK:", contactFK);
+    //});
+
+    let ticketCount = 1;  // Initial ticket count value
+
+    function updateTicketCount() {
+        const checkboxes = document.querySelectorAll('#checkboxGroup input[type="checkbox"]');
+        const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+        ticketCount = 1 + checkedCount;  // Your business logic
+        console.log("Updated ticket count:", ticketCount);
+
+        const ticketCountElement = document.getElementById('ticketCount');
+        ticketCountElement.textContent = ticketCount;
+
+        const hiddenTicketCount = document.getElementById('HiddenTicketCount');
+        hiddenTicketCount.value = ticketCount;  // Bind to hidden input
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const labels = [
+            { id: "label1", content: "@ViewBag.Userg1" },
+            { id: "label2", content: "@ViewBag.Userg2" },
+            { id: "label3", content: "@ViewBag.Userg3" },
+            { id: "label4", content: "@ViewBag.Userg4" }
+        ];
+
+        labels.forEach(label => {
+            if (!label.content.trim()) {
+                const element = document.getElementById(label.id);
+                if (element) {
+                    element.style.display = "none";
+                }
+            }
+        });
+
+        showEventDetails();
+    });
+</script>

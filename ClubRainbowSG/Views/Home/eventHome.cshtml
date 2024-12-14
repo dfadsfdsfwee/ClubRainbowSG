@@ -1,6 +1,4 @@
-﻿
-<form method="post" action="/Home/eventHome" class="form-group">
-
+﻿<form id="eventForm" method="post" action="/Home/eventHome" class="form-group">
     <h1>Welcome, @ViewBag.fullname</h1>
     <h2>Choose an Event</h2>
 
@@ -13,7 +11,6 @@
                 if (pcsName == ViewBag.EventName)
                 {
                     <option value="@pcsName" selected>@pcsName</option>
-
                 }
                 else
                 {
@@ -26,93 +23,115 @@
     {
         <p>No PCS names available.</p>
     }
-   
-  
+
     <br />
     <div id="eventDetails" style="display: @(string.IsNullOrEmpty(ViewBag.EventName) ? "none" : "block");">
-    <h1 id="eventNameHeader">@ViewBag.EventName</h1>
-    
-    <br />
+        <h1 id="eventNameHeader">@ViewBag.EventName</h1>
+        <br />
         <div class="HeroImg">
             <img src="~/images/event1.jpg" alt="Home">
-      </div>
-     <h1>Type</h1>
-    <p>
-        @ViewBag.Type
-    </p>
-    <h1>About This Event</h1>
+        </div>
+        <h1>Type</h1>
+        <p>@ViewBag.Type</p>
+        <h1>About This Event</h1>
         <p>@ViewBag.Description</p>
- 
-    
-    <p></p>
-    <h1>Start Date</h1>
-            <p id="startDate">@ViewBag.StartDateTime</p>
-    <h1>End Date</h1>
-            <p id="endDate">@ViewBag.EndDateTime</p>
-    <h1>Venue</h1>
-    <p>@ViewBag.Location @ViewBag.PscCode</p>
-    <h1>Attire</h1>
-    <p>@ViewBag.Attire</p>
-    <hr>
-    <!-- FILL UP FORM -->
-    
-    <h1>People</h1>
-        <div class="checkbox-group">
+        <h1>Start Date</h1>
+        <p id="startDate">@ViewBag.StartDateTime</p>
+        <h1>End Date</h1>
+        <p id="endDate">@ViewBag.EndDateTime</p>
+        <h1>Venue</h1>
+        <p>@ViewBag.Location @ViewBag.PscCode</p>
+        <h1>Attire</h1>
+        <p>@ViewBag.Attire</p>
+        @*programmePCS_FK*@
+        @*<p>@ViewBag.pcscode</p>*@
+        @*contactpk*@
+        @*<p>@ViewBag.Useraccountname</p>*@
+        @*programmeSession_name_FK*@
+       @* <p>@ViewBag.EventName</p>*@
+        @*ticket_count*@
+        <span id="ticketCount" style="display: none;">3</span>
+
+
+
+       
+
+        <hr>
+        @*<h1>People</h1>
+        <div class="checkbox-group" id="checkboxGroup">
             <label id="label1">
                 @ViewBag.Userg1
-                <input type="checkbox" name="option" value="Option 1">
+                <input type="checkbox" name="option" value="Option 1" onchange="updateTicketCount()">
                 <span class="custom-checkbox"></span>
             </label>
             <label id="label2">
                 @ViewBag.Userg2
-                <input type="checkbox" name="option" value="Option 2">
+                <input type="checkbox" name="option" value="Option 2" onchange="updateTicketCount()">
                 <span class="custom-checkbox"></span>
             </label>
             <label id="label3">
                 @ViewBag.Userg3
-                <input type="checkbox" name="option" value="Option 3">
+                <input type="checkbox" name="option" value="Option 3" onchange="updateTicketCount()">
                 <span class="custom-checkbox"></span>
             </label>
             <label id="label4">
                 @ViewBag.Userg4
-                <input type="checkbox" name="option" value="Option 4">
+                <input type="checkbox" name="option" value="Option 4" onchange="updateTicketCount()">
                 <span class="custom-checkbox"></span>
             </label>
-            <button class="btn-green" type="submit">Submit</button>
+
+
+        *@ <button class="btn-green" onclick="submitForm()">Submit</button>
         </div>
 </form>
+
 <script>
    
-    document.getElementById('pcsDropdown').addEventListener('change', function () {
-        var selectedEvent = this.value;
-       
-        this.form.submit();
+    var ticketCount = 0;
+  
+    function submitForm() {
+        const selectedEvent = document.getElementById('pcsDropdown').value;
+        const ticketCount = parseInt(document.getElementById('ticketCount').value, 10);
+
+      
         
-        if (selectedEvent) {
-            eventHeader.textContent = '' + selectedEvent;
-        } else {
-            eventHeader.textContent = 'Event: Name of the event';
-        }
-    });
+        $.ajax({
+            url: '/Home/SaveTicketCount',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ ticketCount: ticketCount}),
+            success: function (response) {
+                if (response.success) {
+                   
+                    window.location.href = '/Home/RegistrationDetails';
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('AJAX Error:', status, error);
+            }
+        });
+    }
+  
 
+    function updateTicketCount() {
+        const checkboxes = document.querySelectorAll('#checkboxGroup input[type="checkbox"]');
+        const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
 
-    function showEventDetails() {
-        var selectedEvent = document.getElementById('pcsDropdown').value;
-        var eventDetails = document.getElementById('eventDetails');
-        var eventHeader = document.getElementById('eventNameHeader');
+        ticketCount = 1 + checkedCount;
+        console.log("Updated ticket count:", ticketCount);
+        const ticketCountElement = document.getElementById('ticketCount');
+        ticketCountElement.textContent = ticketCount;
 
-       
-        if (selectedEvent) {
-            eventDetails.style.display = 'block';
-            eventHeader.textContent = selectedEvent;
-        } else {
-            eventDetails.style.display = 'none';
-            eventHeader.textContent = 'Event: Name of the event';
-        }
+      
     }
 
+
+
+    document.getElementById('pcsDropdown').addEventListener('change', function () {
+        this.form.submit();
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
-        
         const labels = [
             { id: "label1", content: "@ViewBag.Userg1" },
             { id: "label2", content: "@ViewBag.Userg2" },
@@ -121,12 +140,29 @@
         ];
 
         labels.forEach(label => {
-            if (!label.content.trim()) { 
+            if (!label.content.trim()) {
                 const element = document.getElementById(label.id);
                 if (element) {
-                    element.style.display = "none"; 
+                    element.style.display = "none";
                 }
             }
         });
+
+        showEventDetails(); 
     });
+
+    function showEventDetails() {
+        var selectedEvent = document.getElementById('pcsDropdown').value;
+        var eventDetails = document.getElementById('eventDetails');
+        var eventHeader = document.getElementById('eventNameHeader');
+
+        if (selectedEvent) {
+            eventDetails.style.display = 'block';
+            eventHeader.textContent = selectedEvent;
+        } else {
+            eventDetails.style.display = 'none';
+            eventHeader.textContent = 'Event: Name of the event';
+        }
+    }
+   
 </script>
