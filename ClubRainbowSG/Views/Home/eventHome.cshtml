@@ -43,46 +43,11 @@
         <p>@ViewBag.Location @ViewBag.PscCode</p>
         <h1>Attire</h1>
         <p>@ViewBag.Attire</p>
-        @*programmePCS_FK*@
-        @*<p>@ViewBag.pcscode</p>*@
-        @*contactpk*@
-        @*<p>@ViewBag.Useraccountname</p>*@
-        @*programmeSession_name_FK*@
-       @* <p>@ViewBag.EventName</p>*@
-        @*ticket_count*@
         <span id="ticketCount" style="display: none;">3</span>
-
-
-
-       
-
-        <hr>
-        @*<h1>People</h1>
-        <div class="checkbox-group" id="checkboxGroup">
-            <label id="label1">
-                @ViewBag.Userg1
-                <input type="checkbox" name="option" value="Option 1" onchange="updateTicketCount()">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label id="label2">
-                @ViewBag.Userg2
-                <input type="checkbox" name="option" value="Option 2" onchange="updateTicketCount()">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label id="label3">
-                @ViewBag.Userg3
-                <input type="checkbox" name="option" value="Option 3" onchange="updateTicketCount()">
-                <span class="custom-checkbox"></span>
-            </label>
-            <label id="label4">
-                @ViewBag.Userg4
-                <input type="checkbox" name="option" value="Option 4" onchange="updateTicketCount()">
-                <span class="custom-checkbox"></span>
-            </label>
-
-
-        *@ <button class="btn-green" onclick="submitForm()">Submit</button>
+        <div class="extra-spacing"></div>
+        <button class="btn-green" onclick="submitForm()">Sign Up</button>
         </div>
+    <div class="extra-spacing"></div>
 </form>
 
 <script>
@@ -92,9 +57,6 @@
     function submitForm() {
         const selectedEvent = document.getElementById('pcsDropdown').value;
         const ticketCount = parseInt(document.getElementById('ticketCount').value, 10);
-
-      
-        
         $.ajax({
             url: '/Home/SaveTicketCount',
             method: 'POST',
@@ -124,9 +86,6 @@
 
       
     }
-
-
-
     document.getElementById('pcsDropdown').addEventListener('change', function () {
         this.form.submit();
     });
@@ -155,14 +114,20 @@
         var selectedEvent = document.getElementById('pcsDropdown').value;
         var eventDetails = document.getElementById('eventDetails');
         var eventHeader = document.getElementById('eventNameHeader');
+        var chooseEventHeader = document.querySelector('h2'); // Select the first <h2>
 
         if (selectedEvent) {
             eventDetails.style.display = 'block';
             eventHeader.textContent = selectedEvent;
+
+            // Clear the "Choose an Event" message
+            chooseEventHeader.textContent = '';
         } else {
             eventDetails.style.display = 'none';
             eventHeader.textContent = 'Event: Name of the event';
+
+            // Reset the "Choose an Event" message
+            chooseEventHeader.textContent = 'Choose an Event';
         }
     }
-   
 </script>

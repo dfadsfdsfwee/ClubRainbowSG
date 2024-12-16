@@ -1,39 +1,24 @@
-html, body {
+html, body,main {
     font-family: Arial;
     margin: 0;
     padding: 0;
-    height: 100%;
-    
+    background-color:white;
 }
-.navbar {
+.container-fluid {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 10; 
-    background-color: orange; 
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-
+    padding: 0px 10%;
+    background-color: white;
 }
 
-    .navbar .navbar-brand,
-    .navbar .nav-link {
-        text-align: center;
-        color: #fff; 
-    }
 
- .navbar .nav-link:hover {
- color: #ff7f50; /* Hover effect */}
-
-body {
-    padding-bottom: 70px; 
-}
 .main_division{
     padding-left:10px;
     padding-right:10px;
     padding-top:1%;
     padding-bottom:1%;
-    background-color: #f8f9fa;
 
 }
 
@@ -41,12 +26,11 @@ body {
     text-align: center;
     margin-bottom: 2%;
     margin-top: 2%;
-    padding: 2%;  
+    padding: 2%;
     margin-left: 15%;
     margin-right: 15%;
     border: none;
     border-radius: 10px;
-    background-color: white;
 }
 
 
@@ -62,6 +46,9 @@ body {
     .Icon {
         font-size: 200px;
     }
+    .extra-spacing {
+        height: 25px;
+    }
 
 
 }
@@ -69,6 +56,10 @@ body {
 @media(min-width:768px) and ( max-width:1024px){
     html {
         font-size: 14px;
+    }
+    main{
+        padding-top:5%;
+        margin-bottom:5%;
     }
     .form-group {
         margin-top: 10%;
@@ -86,6 +77,9 @@ body {
     h2 {
         font-size: 12px;
     }
+    .extra-spacing {
+        height: 15px;
+    }
 
 }
 
@@ -93,6 +87,10 @@ body {
 @media( max-width:600px) {
     html {
         font-size: 12px;
+    }
+    main {
+        padding-top: 30%;
+        margin-bottom:20%;
     }
     .form-div-groups {
         margin-bottom: 3%;
@@ -107,17 +105,12 @@ body {
     h2 {
         font-size: 12px;
     }
+    .extra-spacing {
+    height:10px;
+    }
 }
 
 
-.container-fluid {
-    background-color: white;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding:0px 10%;
-}
 
 
 /*  THIS IS FOR HEADER FONT SIZE
@@ -145,6 +138,7 @@ h2{
     padding: 5% 10%;
     text-align: center;
 }
+
 .checkbox-container {
     display: flex;
     flex-direction: column;
@@ -196,7 +190,6 @@ h2{
         left: 5px;
         transform: rotate(45deg);
     }
-/*     */
 .form-group {
     align-content: center;
     margin-left: auto;
@@ -204,6 +197,7 @@ h2{
     padding: 5% 10%;
 
 }
+
 /*INPUT TEXTBOX CSS*/
 input {
     align-content: center;
@@ -211,7 +205,20 @@ input {
     border: none;
     padding: 10px;
     width: 100%;
+    border-radius: 10px;
+    margin-top:6px;  
 }
+    input:focus {
+        background-color: #d3d3d3;
+        box-shadow: none;
+        outline: none;
+    }
+    input.filled {
+        background-color: #d3d3d3; 
+        border: none; 
+        outline: none;
+    }
+
 
 placeholder {
     display: block;
@@ -289,6 +296,7 @@ placeholder {
         padding-left:10%;
         padding-right:10%;
     }
+
 /*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
 .btn {
     width: 100%;
@@ -354,11 +362,11 @@ placeholder {
     text-align: center;
 }
 
-footer {
-    height: 50px; /* Footer height */
-    background: #f8f9fa;
-    text-align: center;
-    padding: 10px;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better separation */
+.error-message {
+    color: #BA2D32;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
 

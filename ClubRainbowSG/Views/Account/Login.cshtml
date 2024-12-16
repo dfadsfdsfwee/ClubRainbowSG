@@ -12,13 +12,13 @@
     </div>
     <div class="form-div-groups">
         <label for="email">Email</label><br>
-        <input type="text" id="email" name="email" class="form-container" placeholder="Your Email" asp-for="Email"/>
+        <input type="text" id="email" name="email" placeholder="Your Email" asp-for="Email"/>
         <span asp-validation-for="Email"></span>
     </div>
       
     <div class="form-div-groups">
         <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" class="form-container" placeholder="Your Password"asp-for="Password" />
+        <input type="password" id="password" name="password" placeholder="Your Password"asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
     <div class="form-div-groups">
@@ -32,3 +32,40 @@
 {
     <div class="alert alert-danger mt-3">@ViewBag.Message</div>
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            const emailInput = document.getElementById("email");
+            const passwordInput = document.getElementById("password");
+
+            document.querySelectorAll(".error-message").forEach(el => el.remove());
+            if (emailInput.value.trim() === "") {
+                isValid = false;
+                showError(emailInput, "Email cannot be empty");
+            }
+
+            if (passwordInput.value.trim() === "") {
+                isValid = false;
+                showError(passwordInput, "Password cannot be empty");
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        function showError(input, message) {
+            const errorSpan = document.createElement("div");
+            errorSpan.className = "error-message";
+            errorSpan.textContent = message;
+            errorSpan.innerHTML = `&#9888; ${message}`; 
+            input.parentNode.appendChild(errorSpan);
+        }
+    });
+</script>
+
+

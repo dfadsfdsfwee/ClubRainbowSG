@@ -10,59 +10,55 @@
     <link rel="icon" type="image/x-icon" href="~/images/logo.jpg">
 </head>
 <body>
-    <header>
-       
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-               @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ClubRainbowSG</a>*@
-
-                <div class="flex-row w-100">
-                    <ul class="navbar-nav d-flex justify-content-around align-items-center flex-row w-100">
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>*@
-                        <li class="nav-item">
-                           
-                            <a class="nav-link text-dark text-center d-flex flex-column align-items-center" asp-area="" asp-controller="Home" asp-action="eventHome">
-                                <img src="~/images/Homepageicon.png" alt="Homeicon" width="50px" height="50px">
-                                Home</a>
-                        </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Password" asp-action="newpassword">new password</a>
-                        </li>
-                        <li class="nav-item">
-                        *@
-                        <a class="nav-link text-dark text-center d-flex flex-column align-items-center" asp-area="" asp-controller="Event" asp-action="myevent">
-                                <img src="~/images/eventpageicon.png" alt="Eventpageicon" width="50px" height="50px">
-                                My Event
-                                </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
     <main role="main" class="pb-3">
         @RenderBody()
+        <footer>
+            <nav class="navbar navbar-expand-sm navbar-light bg-white">
+                <div class="container-fluid">
+                    <div class="flex-row w-100">
+                        <ul class="navbar-nav d-flex justify-content-around align-items-center flex-row w-100">
+                            <li class="nav-item">
+
+                                <a class="nav-link text-dark text-center d-flex flex-column align-items-center" asp-area="" asp-controller="Home" asp-action="eventHome">
+                                    <img src="~/images/Homepageicon.png" alt="Homeicon" width="50px" height="50px">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark text-center d-flex flex-column align-items-center" asp-area="" asp-controller="Event" asp-action="myevent">
+                                    <img src="~/images/eventpageicon.png" alt="Eventpageicon" width="50px" height="50px">
+                                    My Event
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
     </main>
-    @*<footer>
-        <div>
-            &copy; 2024 - ClubRainbowSG - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the current URL path
+            const currentPath = window.location.pathname.toLowerCase();
+
+            // Get the footer element
+            const footer = document.querySelector("footer");
+
+            // Check if the page is 'eventHome.cshtml' or 'myevent.cshtml'
+            if (currentPath.includes("eventhome") || currentPath.includes("myevent") || currentPath.includes("registrationdetails") || currentPath.includes("ticket")) {
+                // Show the footer
+                if (footer) footer.style.display = "block";
+            } else {
+                // Hide the footer for all other pages
+                if (footer) footer.style.display = "none";
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
