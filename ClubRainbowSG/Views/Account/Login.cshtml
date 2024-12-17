@@ -13,19 +13,21 @@
     <div class="form-div-groups">
         <label for="email">Email</label><br>
         <input type="text" id="email" name="email" placeholder="Your Email" asp-for="Email"/>
-        <span asp-validation-for="Email"></span>
+        <span asp-validation-for="Email" class="error-message"></span>
     </div>
       
     <div class="form-div-groups">
         <label for="password">Password</label><br>
         <input type="password" id="password" name="password" placeholder="Your Password"asp-for="Password" />
-        <span asp-validation-for="Password"></span>
+        <span asp-validation-for="Password" class="error-message"></span>
+
     </div>
     <div class="form-div-groups">
         <a href="@Url.Action("ResetPassword", "Password")">Forget Password?</a>
 	</div>
     <button type="submit" class="btn">Login</button>
 </form>
+<!-- Temporary debugging line to display the value of ViewBag.PassMatch -->
 
 
 @if (ViewBag.Message != null)
@@ -62,7 +64,7 @@
             const errorSpan = document.createElement("div");
             errorSpan.className = "error-message";
             errorSpan.textContent = message;
-            errorSpan.innerHTML = `&#9888; ${message}`; 
+            errorSpan.innerHTML = message; 
             input.parentNode.appendChild(errorSpan);
         }
     });

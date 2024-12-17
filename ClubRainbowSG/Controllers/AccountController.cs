@@ -32,17 +32,18 @@ namespace ClubRainbowSG.Controllers
                 return View(loginvm);
 
             var user = await _context.Contacts
-                .FirstOrDefaultAsync(c => c.email == loginvm.Email);
+                .FirstOrDefaultAsync(c => c.email == loginvm.Email);     
 
-            if (user == null || user.hashed_password != loginvm.Password) // Replace with hashing logic
+            if (user.hashed_password != loginvm.Password) // Replace with hashing logic
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("Password", "Invalid login attempt.");
                 return View(loginvm);
             }
 
+            ViewBag.PassMatch = true;
 
             // Store user information in the session
-           
+
             HttpContext.Session.SetString("Usersalutation", user.salutation.ToString() ?? string.Empty);
             HttpContext.Session.SetString("Usersaluteonly", user.salutation_only ?? string.Empty);
             HttpContext.Session.SetString("UserFullName", user.full_name!);
