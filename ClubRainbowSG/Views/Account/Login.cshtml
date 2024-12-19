@@ -3,11 +3,9 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<title>Login Page</title>
-
-<form asp-action="Login" asp-controller="Account" method="post" class="form-group" >
+<form asp-action="Login" asp-controller="Account" method="post" class="form-group">
     <div class="form-div-groups">
+        <title>Login Page</title>
         <h1>Welcome Back</h1>
         <h2>Sign to your account</h2>
     </div>
@@ -21,10 +19,10 @@
         <label for="password">Password</label><br>
         <input type="password" id="password" name="password" placeholder="Your Password"asp-for="Password" />
     </div>
-    <div class="checkbox-container">
-        <div><input type="checkbox" id="showPasswordCheckbox" onclick="showpasswordfunction()"></div>
-        <div><label for="showPasswordCheckbox">Show Password</label></div>
-    </div>
+    <span class="checkbox-container">
+        <span><input type="checkbox" id="showPasswordCheckbox" onclick="showpasswordfunction()"></span>
+        <span><label for="showPasswordCheckbox">Show Password</label></span>
+    </span>
     <div class="form-div-groups">
         <a href="@Url.Action("ResetPassword", "Password")">Forget Password?</a>
 	</div>
