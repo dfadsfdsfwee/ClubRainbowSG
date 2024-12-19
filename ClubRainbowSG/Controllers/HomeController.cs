@@ -129,7 +129,9 @@ namespace ClubRainbowSG.Controllers
             ViewBag.Userg2 = HttpContext.Session.GetString("Userg2") ?? "N/A";
             ViewBag.Userg3 = HttpContext.Session.GetString("Userg3") ?? "N/A";
             ViewBag.Userg4 = HttpContext.Session.GetString("Userg4") ?? "N/A";
-
+            TempData.Keep("Pcscode");
+            TempData.Keep("Useraccountname");
+            TempData.Keep("session_name");
             return View();
         }
 
