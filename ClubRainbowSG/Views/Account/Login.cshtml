@@ -5,6 +5,7 @@
 }
 
 <title>Login Page</title>
+
 <form asp-action="Login" asp-controller="Account" method="post" class="form-group" >
     <div class="form-div-groups">
         <h1>Welcome Back</h1>
@@ -19,14 +20,20 @@
     <div class="form-div-groups">
         <label for="password">Password</label><br>
         <input type="password" id="password" name="password" placeholder="Your Password"asp-for="Password" />
-        <span asp-validation-for="Password" class="error-message"></span>
-
+    </div>
+    <div class="checkbox-container">
+        <div><input type="checkbox" id="showPasswordCheckbox" onclick="showpasswordfunction()"></div>
+        <div><label for="showPasswordCheckbox">Show Password</label></div>
     </div>
     <div class="form-div-groups">
         <a href="@Url.Action("ResetPassword", "Password")">Forget Password?</a>
 	</div>
     <button type="submit" class="btn">Login</button>
+    <div id="invaildlogin">
+        <span asp-validation-for="Password" class="error-message"></span>
+    </div>
 </form>
+
 <!-- Temporary debugging line to display the value of ViewBag.PassMatch -->
 
 
@@ -36,6 +43,15 @@
 }
 
 <script>
+    function showpasswordfunction() {
+        var checkboxstate = document.getElementById("password");
+        if (checkboxstate.type === "password") {
+            checkboxstate.type = "text";
+        } else {
+            checkboxstate.type = "password";
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector("form");
 

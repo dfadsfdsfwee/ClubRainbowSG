@@ -296,8 +296,18 @@ placeholder {
         padding-left:10%;
         padding-right:10%;
     }
+    .checkbox-container {
+        display: flex;
+        flex-direction: row;
 
-/*BUTTON CSS SECTION---------------------------------------------------------------------------------*/
+    }
+    .checkbox-container input[type="checkbox"] {
+        margin: 0;
+        vertical-align: middle;
+   }
+
+
+/*BUTTON CSS */
 .btn {
     width: 100%;
     padding: 10px;
@@ -308,6 +318,7 @@ placeholder {
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
+    display: block;
     transition: background-color 0.3s ease;
 }
 .btn:hover {
@@ -355,18 +366,22 @@ placeholder {
         color: #fff;
     }
 
-/*ICON CSS-------------------------------------------------------------------------------*/
+/*ICON CSS*/
 .Icon {
     color: #f1a259;
     width: 100%;
     text-align: center;
 }
-
+/*ERROR MESSAGE CSS*/
 .error-message {
     color: #BA2D32;
     font-size: 12px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+#invaildlogin {
+    text-align: center;
+    margin-top: 10px;
 }
 
 

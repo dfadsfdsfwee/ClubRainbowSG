@@ -36,7 +36,7 @@ namespace ClubRainbowSG.Controllers
 
             if (user.hashed_password != loginvm.Password) // Replace with hashing logic
             {
-                ModelState.AddModelError("Password", "Invalid login attempt.");
+                ModelState.AddModelError("Password", "Incorrect email or password.");
                 return View(loginvm);
             }
 
