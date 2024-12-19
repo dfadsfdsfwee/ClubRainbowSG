@@ -57,6 +57,19 @@
                 if (footer) footer.style.display = "none";
             }
         });
+
+        function setDivHeight() {
+            var deviceHeight = window.innerHeight || document.documentElement.clientHeight;
+            var dynamicDivs = document.getElementsByClassName('dynamicDiv'); // Get all elements with the class
+
+            for (var i = 0; i < dynamicDivs.length; i++) {
+                dynamicDivs[i].style.height = deviceHeight + 'px'; // Set height in pixels
+            }
+        }
+
+        // Set height on page load and window resize
+        setDivHeight();
+        window.addEventListener('resize', setDivHeight);
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

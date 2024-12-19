@@ -38,7 +38,7 @@ namespace clubrainbow.Controllers
         {
             if (string.IsNullOrEmpty(email)||!IsValidEmail(email))
             {
-                ModelState.AddModelError("", "Valid Email is required");
+                ModelState.AddModelError("", "A valid email address is required. Please ensure the email is entered correctly");
                 return View();
             }
             var token=GenerateTemporaryToken();
@@ -47,7 +47,7 @@ namespace clubrainbow.Controllers
 
             if (user == null) // Replace with hashing logic
             {
-                ModelState.AddModelError("", "Account email not found");
+                ModelState.AddModelError("", "The email address you provided is not found in our database. Please verify your input or register if you don't have an account.");
                 return View();
             }
             var client = new HttpClient();

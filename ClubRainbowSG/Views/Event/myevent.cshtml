@@ -3,26 +3,27 @@
 @{
 }
 
-<div class="main_division">
     @if (ViewBag.myevents != null && ((IEnumerable<dynamic>)ViewBag.myevents).Any())
     {
+        <div class="dynamicDiv main_division">
         @foreach (var evt in ViewBag.myevents)
-    {
-       <div class="sub_division">
+        {
+            <br/>
+            <div class="sub_division">
             <h1>Event: @evt.pcsname</h1>
             <h1>Tickets: @evt.ticket_count</h1>
             <p>Start Date: @evt.start_date_time</p>
             <p>End Date: @evt.end_date_time</p>
             <p>Venue: @evt.location</p>
-
             <div class="btn">Scan QR Code</div>
-    </div> 
+            </div> 
         }
+    </div>
     }
     else
     {
-     <div class="sub_division">
-        <h1>Please register for events to see your events.</h1>   
-     </div>
+     <div class="info-division">
+            <h1>You currently haven't signed up for any events. Your events list is empty. </h1><br>
+            <h1>Please register for events to start managing them here!</h1>
+        </div>
     }
-</div>
