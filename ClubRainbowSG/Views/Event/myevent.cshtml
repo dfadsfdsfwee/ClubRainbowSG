@@ -4,20 +4,25 @@
 }
 
 <div class="main_division">
-    <div class="sub_division">
-            <h1>Event: Name of the event</h1>
-            <h1>Tickets: number</h1>
-            <p>Start Date:</p>
-            <p>End Date:</p>
-            <p>Venue:</p>
+    @if (ViewBag.myevents != null && ((IEnumerable<dynamic>)ViewBag.myevents).Any())
+    {
+        @foreach (var evt in ViewBag.myevents)
+    {
+       <div class="sub_division">
+            <h1>Event: @evt.pcsname</h1>
+            <h1>Tickets: @evt.ticket_count</h1>
+            <p>Start Date: @evt.start_date_time</p>
+            <p>End Date: @evt.end_date_time</p>
+            <p>Venue: @evt.location</p>
+
             <div class="btn">Scan QR Code</div>
-    </div>
-    <div class="sub_division">
-        <h1>Event: Name of the event</h1>
-        <h1>Tickets: number</h1>
-        <p>Start Date:</p>
-        <p>End Date:</p>
-        <p>Venue:</p>
-        <div class="btn">Scan QR Code</div>
-    </div>
+    </div> 
+        }
+    }
+    else
+    {
+     <div class="sub_division">
+        <h1>Please register for events to see your events.</h1>   
+     </div>
+    }
 </div>

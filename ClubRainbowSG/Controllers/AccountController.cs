@@ -63,6 +63,15 @@ namespace ClubRainbowSG.Controllers
             HttpContext.Session.SetString("Userg2", user.guardian_2 ?? string.Empty);
             HttpContext.Session.SetString("Userg3", user.guardian_3 ?? string.Empty);
             HttpContext.Session.SetString("Userg4", user.guardian_4 ?? string.Empty);
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddDays(7), // Cookie expiration (e.g., 7 days)
+                HttpOnly = true,  // Secure the cookie against JavaScript access
+                Secure = true,    // Ensure the cookie is sent over HTTPS
+                IsEssential = true // Ensure cookie is always sent
+            };
+            HttpContext.Response.Cookies.Append("Useraccountname", user.account_name ?? string.Empty, cookieOptions);
+            
 
             // Redirect to home or desired page
             return RedirectToAction("eventHome", "Home");
