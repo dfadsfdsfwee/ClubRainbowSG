@@ -38,7 +38,7 @@ namespace clubrainbow.Controllers
         {
             if (string.IsNullOrEmpty(email)||!IsValidEmail(email))
             {
-                ModelState.AddModelError("", "valid Email is required");
+                ModelState.AddModelError("", "Valid Email is required");
                 return View();
             }
             var token=GenerateTemporaryToken();
@@ -47,7 +47,7 @@ namespace clubrainbow.Controllers
 
             if (user == null) // Replace with hashing logic
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                ModelState.AddModelError("", "Account email not found");
                 return View();
             }
             var client = new HttpClient();
@@ -82,9 +82,9 @@ namespace clubrainbow.Controllers
 
         public IActionResult newpassword(string email,string token )
         {
-            ViewBag.encrypted = token;//??
+            ViewBag.encrypted = token;//?? HttpContext.Session.GetString("forpasschange");
             ViewBag.email = email;
-            ViewBag.checktoken=HttpContext.Session.GetString("forpasschange");
+            ViewBag.checktoken=HttpContext.Session.GetString("forpasschange")??token;
             return View();
         }
         [HttpPost]
@@ -95,13 +95,19 @@ namespace clubrainbow.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+         
             var user = await _context.Contacts.FirstOrDefaultAsync(c => c.email == email);
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-            if (newPW != confPW)
+            if (newPW != confPW|| newPW == null || confPW == null)
             {
+               
+
+                ViewBag.encrypted = HttpContext.Session.GetString("forpasschange");
+                ViewBag.email = email;
+                ViewBag.checktoken = HttpContext.Session.GetString("forpasschange");
                 ModelState.AddModelError("matchPassword", "New password and confirm password do not match.");
                 return View();
             }
