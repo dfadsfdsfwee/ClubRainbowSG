@@ -40,7 +40,7 @@ html, body,main {
     html {
         font-size: 16px;
     }
-    .form-div-groups {
+    .form-div-groups  {
         margin-bottom: 1.5%;
     }
     .Icon {
@@ -110,14 +110,6 @@ html, body,main {
     }
 }
 
-
-
-
-/*  THIS IS FOR HEADER FONT SIZE
-    H1: FOR HEADERS 
-    H2: FOR GREY FONT DESCRIPTIONS
-    ---------------------------------------------------------------------------------
-*/
 
 h1{     
     font-size:24px;
