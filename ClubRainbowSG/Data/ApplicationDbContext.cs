@@ -18,7 +18,7 @@ namespace clubrainbowSG.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TestProgramme>()
-        .HasKey(tp => new { tp.pcscode, tp.session_name }); // Composite Key
+        .HasKey(tp => new { tp.pcscode, tp.session_name });
 
             modelBuilder.Entity<Registration>(entity =>
             {
