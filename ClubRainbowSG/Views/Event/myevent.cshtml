@@ -15,7 +15,7 @@
             <p>Start Date: @evt.start_date_time</p>
             <p>End Date: @evt.end_date_time</p>
             <p>Venue: @evt.location</p>
-            <div class="btn">Scan QR Code</div>
+                <a href="@Url.Action("Qrcode", "Event")" class="btn">Scan QR Code</a>
             </div> 
         }
     </div>
