@@ -43,6 +43,12 @@
             </label>
             <div class="extra-spacing"></div>
             <button type="submit" class="btn-green">Submit</button>
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <span class="text-danger" id="errorMessage">
+                    @ViewBag.ErrorMessage
+                </span>
+            }
         </div>
         <div class="extra-spacing"></div>
     </div>

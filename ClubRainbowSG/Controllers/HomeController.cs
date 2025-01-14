@@ -140,6 +140,28 @@ namespace ClubRainbowSG.Controllers
         {
             try
             {
+                var existingRegistration = await _context.Registration
+                    .FirstOrDefaultAsync(r =>
+                    r.contactFK == registrationDto.ContactFK &&
+                    r.programmePCS_FK == registrationDto.programmePCS_FK &&
+                    r.programmeSession_name_FK == registrationDto.programmeSession_name_FK);
+                var testProgram = await _context.TestProgram
+            .FirstOrDefaultAsync(tp => tp.pcscode == registrationDto.programmePCS_FK);
+                if (existingRegistration != null)
+                {
+                    ViewBag.ErrorMessage = "Duplicate registration is not allowed.";
+                    ViewBag.Pcscode = registrationDto.programmePCS_FK;
+                    ViewBag.Useraccountname = HttpContext.Session.GetString("Useraccountname");
+                    ViewBag.session_name = testProgram.session_name;
+                    ViewBag.ticketcount = HttpContext.Session.GetInt32("TicketCount");
+                    ViewBag.Userg1 = HttpContext.Session.GetString("Userg1") ?? "N/A";
+                    ViewBag.Userg2 = HttpContext.Session.GetString("Userg2") ?? "N/A";
+                    ViewBag.Userg3 = HttpContext.Session.GetString("Userg3") ?? "N/A";
+                    ViewBag.Userg4 = HttpContext.Session.GetString("Userg4") ?? "N/A";
+                    // Return a view, error message, or simply redirect
+                    ModelState.AddModelError(string.Empty, "Duplicate registration is not allowed.");
+                    return View("registrationdetails"); // Replace with appropriate error handling
+                }
                 var registration = new Registration
                 {
                     contactFK = registrationDto.ContactFK,
