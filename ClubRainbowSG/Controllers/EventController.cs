@@ -1,6 +1,7 @@
 ﻿using clubrainbowSG.Data;
 using Microsoft.AspNetCore.Mvc;
-
+using ClubRainbowSG.Models;
+using System.Diagnostics;
 namespace ClubRainbowSG.Controllers
 {
     public class EventController : Controller
@@ -38,5 +39,18 @@ namespace ClubRainbowSG.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Qrcode()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ScanResult([FromBody] QRCodeData data)
+        {
+            Console.WriteLine($"Scanned Text: {data.ScannedText}");
+            return Ok();
+        }
+
     }
 }
