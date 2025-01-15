@@ -112,8 +112,35 @@ namespace clubrainbow.Controllers
                 return View();
             }
             user.hashed_password = newPW; // Update password (consider hashing it before saving)
-            await _context.SaveChangesAsync();
-            return RedirectToAction("passwordchanged", "Password");
+            
+            var client = new HttpClient();
+            var url = "https://prod-04.southeastasia.logic.azure.com:443/workflows/cda35aa3a3f243348fcd22b35a3944ff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8Br4x1XzwU265q3riTers3dzxHiVjUePt2bu8pJs-jY";
+                       
+            var payload = new
+            {
+                email = email,
+                encryptedEmail = "meh"
+            };
+            var jsonString = JsonSerializer.Serialize(payload);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(url, content);
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            Console.WriteLine($"Payload Sent: {jsonString}");
+            if (response.IsSuccessStatusCode)
+            {
+                user.hashed_password = newPW; // Update password (consider hashing it before saving)
+                await _context.SaveChangesAsync();
+                // Optional: If flow triggered successfully, proceed
+                return RedirectToAction("passwordchanged", "Password");
+            }
+            else
+            {
+                // Handle failure response from Power Automate
+                ModelState.AddModelError("", "Failed to send email.");
+                return RedirectToAction("index","Home");
+            }
+            //return RedirectToAction("passwordchanged", "Password");
         }
 
         public IActionResult passwordchanged()
