@@ -111,7 +111,6 @@ namespace clubrainbow.Controllers
                 ModelState.AddModelError("matchPassword", "New password and confirm password do not match.");
                 return View();
             }
-            user.hashed_password = newPW; // Update password (consider hashing it before saving)
             
             var client = new HttpClient();
             var url = "https://prod-04.southeastasia.logic.azure.com:443/workflows/cda35aa3a3f243348fcd22b35a3944ff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8Br4x1XzwU265q3riTers3dzxHiVjUePt2bu8pJs-jY";
