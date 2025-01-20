@@ -3,12 +3,35 @@
 @{
 }
 	<div class="sub_division">
-	<div class="Icon">&#128712;</div>
-		<h1>CANCELLATION!</h1>
-		<h2>Are you sure you want to cancel your booking?</h2>
+    @if (!string.IsNullOrEmpty(ViewBag.pcscode) && !string.IsNullOrEmpty(ViewBag.accountname))
+	{
+        <form asp-action="cancelevent" asp-controller="Event" method="post" class="form-group">
+            <div class="form-div-groups">
+                <div class="Icon">&#128712;</div>
+                <h1>CANCELLATION!</h1>
+                <h2>Are you sure you want to cancel your booking?</h2>
+            </div>
+            <div class="form-div-groups">
+                <input type="hidden" value=@ViewBag.pcscode id="pcscode" name="pcscode" />
+                <input type="hidden" value=@ViewBag.accountname id="accntname" name="accntname" />
+            </div>
+            @* @if (ViewData.ModelState.ContainsKey("cancelErr"))
+            {
+                <span class="text-danger">@ViewData.ModelState["cancelErr"].Errors[0].ErrorMessage</span>
+            } *@
+            <button type="submit" class="btn-red">Cancel Booking</button>
+            <a class="btn" href="@Url.Action("eventHome", "Home")">Keep Booking</a>
+        </form>
+		
 		<br />
 		<div>
-			<a class="btn-red" href="@Url.Action("login", "Account")">Cancel Booking</a>
-			<a class="btn" href="@Url.Action("login", "Account")">Keep Booking</a>
+			@* <a class="btn-red" href="@Url.Action("login", "Account")">Cancel Booking</a> *@
+			
 		</div>
+
+	}
+	
+		
+		
+		<p><make it same as new password. get the session account name and the pcscode then find the registration/p>
 	</div>

@@ -79,7 +79,7 @@ namespace clubrainbow.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult newpassword(string email,string token )
         {
             ViewBag.encrypted = token;//?? HttpContext.Session.GetString("forpasschange");

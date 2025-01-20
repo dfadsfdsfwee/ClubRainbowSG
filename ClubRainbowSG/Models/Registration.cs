@@ -15,5 +15,6 @@ namespace ClubRainbowSG.Models
         
         public string? programmeSession_name_FK { get; set; }
         public int ticket_count { get; set; }
+        public string Status {  get; set; }
     }
 }

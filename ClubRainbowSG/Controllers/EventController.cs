@@ -18,6 +18,7 @@ namespace ClubRainbowSG.Controllers
                            join evt in _context.TestProgram
                            on reg.programmePCS_FK equals evt.pcscode // Join condition
                            where reg.contactFK == accountname // Filter by contactfk
+                           && reg.Status != "Cancelled"
                            select new
                            {
                                evt.pcsname,       // Event name from Events table
@@ -30,11 +31,33 @@ namespace ClubRainbowSG.Controllers
 
             return View();
         }
-        public IActionResult cancelevent()
+        [HttpGet]
+        public IActionResult cancelevent(string pcscode)
         {
-            return View();
+            ViewBag.pcscode = pcscode;
+            ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
+			return View();
         }
-
+        [HttpPost]
+        public async Task<IActionResult> cancelevent(string pcscode, string accntname)
+        {
+            if (string.IsNullOrEmpty(pcscode) || string.IsNullOrEmpty(accntname))
+            {
+                Console.WriteLine("nullinput");
+                return RedirectToAction("myevent","Event");
+            }
+ 
+            var targetevent= _context.Registration.FirstOrDefault(r=>r.programmePCS_FK==pcscode&&r.contactFK== accntname);
+            if (targetevent == null)
+            {
+                Console.WriteLine("nullvalue");
+                return RedirectToAction("myevent", "Event");
+            }
+            targetevent.Status = "Cancelled";
+            await _context.SaveChangesAsync();
+            Console.WriteLine("yay");
+            return RedirectToAction("myevent","Event");
+        }
         public IActionResult ticket()
         {
             return View();
