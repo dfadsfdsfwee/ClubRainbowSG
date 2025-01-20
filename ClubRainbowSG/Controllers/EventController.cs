@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ClubRainbowSG.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+
 namespace ClubRainbowSG.Controllers
 {
     public class EventController : Controller
@@ -46,8 +48,8 @@ namespace ClubRainbowSG.Controllers
                 Console.WriteLine("nullinput");
                 return RedirectToAction("myevent","Event");
             }
- 
-            var targetevent= _context.Registration.FirstOrDefault(r=>r.programmePCS_FK==pcscode&&r.contactFK== accntname);
+            Console.WriteLine(pcscode);
+            var targetevent= await _context.Registration.FirstOrDefaultAsync(r => r.programmePCS_FK == pcscode&&r.contactFK== accntname);
             if (targetevent == null)
             {
                 Console.WriteLine("nullvalue");
