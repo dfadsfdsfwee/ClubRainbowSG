@@ -30,14 +30,14 @@ namespace ClubRainbowSG.Controllers
                                evt.start_date_time,       // Start date from Events table
                                evt.end_date_time,         // End date from Events table
                                evt.location,           // Venue from Events table
-                               reg.ticket_count      // Ticket count from Registration table
+                               reg.ticket_count,      // Ticket count from Registration table
+                               reg.programmePCS_FK
                            }).ToList();
             ViewBag.myevents=myevents;
 
             return View();
         }
-        [HttpGet]
-        public IActionResult cancelevent(string pcscode,string sesname)
+        public IActionResult cancelevent()
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");

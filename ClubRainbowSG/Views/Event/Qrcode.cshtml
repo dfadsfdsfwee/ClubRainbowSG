@@ -6,10 +6,50 @@
     <title>QR Code Scanner</title>
     <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.0.0/minified/html5-qrcode.min.js"></script>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+ 
+ h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .main_division {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10%;
+            margin: 0;
+            padding-left: 10%;
+            padding-right: 10%;
+            background-color: #f1f1f1;
+        }
+
+        .sub_division {
+            text-align: center;
+            margin-bottom: 2%;
+            margin-top: 4%;
+            padding: 5%;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .error-message {
+            color: #BA2D32;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
         #qr-code-scanner {
             width: 100%;
             height: 400px;
             border: 1px solid black;
+            margin-top: 10px;
         }
 
         #file-input {
@@ -24,27 +64,72 @@
 
         #access-button {
             margin-top: 10px;
-            display: none; /* Hidden by default */
+            display: none;
         }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f1a259;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #FF7F50;
+            color: #fff;
+        }
+
+        .btn-green {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #439551;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        .btn-green:hover {
+            background-color: #589892;
+            color: #fff;
+        }
+
+      
+       
     </style>
 </head>
 <body>
 
-    <h1>QR Code Scanner</h1>
+    <div class="main_division">
+        <div class="sub_division">
+            <h1>QR Code Scanner</h1>
+            <button id="start-scanning-button" class="btn">Start Scanning</button>
+            <button id="stop-scanning-button" class="btn" disabled>Stop Scanning</button>
+            <input type="file" id="file-input" accept="image/*">
+            <div id="qr-code-scanner"></div>
 
-    <button id="start-scanning-button">Start Scanning</button>
-    <button id="stop-scanning-button" disabled>Stop Scanning</button>
-    <input type="file" id="file-input" accept="image/*">
-    <div id="qr-code-scanner"></div>
+            <div id="result">
+                <p>QR Code result: <span id="qr-result"></span></p>
+            </div>
 
-    <div id="result">
-        <p>QR Code result: <span id="qr-result"></span></p>
+            <!-- Button to access the website -->
+            <button id="access-button" class="btn-green">Go to Website</button>
+
+            <p id="status"></p>
+        </div>
     </div>
-
-    <!-- Button to access the website -->
-    <button id="access-button">Go to Website</button>
-
-    <p id="status"></p>
 
     <script>
         let scanner;

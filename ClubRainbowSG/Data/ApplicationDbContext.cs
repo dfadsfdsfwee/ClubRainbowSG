@@ -14,7 +14,7 @@ namespace clubrainbowSG.Data
         public DbSet<Contacts> Contacts { get; set; }
 
         public DbSet<Registration> Registration { get; set; }
-
+        public DbSet<Attendance> Attendance { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TestProgramme>()
