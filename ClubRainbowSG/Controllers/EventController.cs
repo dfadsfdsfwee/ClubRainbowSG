@@ -68,19 +68,26 @@ namespace ClubRainbowSG.Controllers
             Console.WriteLine(username+" "+eventname+session);
             targetevent.Status = "Cancelled";
             await _context.SaveChangesAsync();
-            /*var client = new HttpClient();
-            var url = "https://prod-04.southeastasia.logic.azure.com:443/workflows/cda35aa3a3f243348fcd22b35a3944ff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8Br4x1XzwU265q3riTers3dzxHiVjUePt2bu8pJs-jY";
-
+            var client = new HttpClient();
+            var url = "https://prod-19.southeastasia.logic.azure.com:443/workflows/d07ec9aa907a40e9aa3b410f95718929/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=kRx1T5WGFNoR_Hdyw40mFR58tB3aYWIjhxIGJYi3SoA";
+            var url2 = "https://prod-47.southeastasia.logic.azure.com:443/workflows/de976f7f4dc540088223376b57083553/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=n6B_zExFOHGBHR105hVAWDA5lMZyu4hw3ToEiMZD3Pg";
             var payload = new
             {
                 username = userinfo.full_name,
                 eventname = eventinfo.pcsname,
-                datetime=eventinfo.session_name
+                session = eventinfo.session_name
+            };
+            var payload2 = new
+            {
+                email=userinfo.email,
+                eventname=eventinfo.pcsname
             };
             var jsonString = JsonSerializer.Serialize(payload);
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(url, content);*/
+            var response = await client.PostAsync(url, content);
+            var jsonString2 = JsonSerializer.Serialize(payload2);
+            var content2 = new StringContent(jsonString2, Encoding.UTF8, "application/json");
+            var response2 = await client.PostAsync(url2, content2);
             Console.WriteLine("yay");
             return RedirectToAction("myevent","Event");
         }
