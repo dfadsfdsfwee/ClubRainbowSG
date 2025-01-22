@@ -83,13 +83,13 @@ namespace ClubRainbowSG.Controllers
             return View();
 
         }
-        [HttpPost]
+       
         public IActionResult Logoutuser()
         {
 
             HttpContext.Session.Clear();
 
-            // Redirect to login page or home page
+            
             return RedirectToAction("Login", "Account");
         }
     }

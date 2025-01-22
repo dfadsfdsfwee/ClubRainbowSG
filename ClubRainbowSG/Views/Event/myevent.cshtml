@@ -5,17 +5,20 @@
 
     @if (ViewBag.myevents != null && ((IEnumerable<dynamic>)ViewBag.myevents).Any())
     {
-        <div class="dynamicDiv main_division">
+        <div class="main_division">
         @foreach (var evt in ViewBag.myevents)
         {
-            <br/>
             <div class="sub_division">
             <h1>Event: @evt.pcsname</h1>
             <h1>Tickets: @evt.ticket_count</h1>
             <p>Start Date: @evt.start_date_time</p>
             <p>End Date: @evt.end_date_time</p>
             <p>Venue: @evt.location</p>
-                <a href="@Url.Action("Qrcode", "Event")" class="btn">Scan QR Code</a>
+               @* <a href="@Url.Action("Qrcode", "Event")" class="btn">Scan QR Code</a>*@
+                <form method="post" asp-action="MarkAttendance" asp-route-programmePCS_FK="@evt.programmePCS_FK">
+                    <input type="hidden" name="ticket_count" value="@evt.ticket_count" />
+                    <button type="submit" class="btn">Mark Attendance</button>
+                </form>
             </div> 
         }
     </div>
