@@ -147,7 +147,7 @@ namespace ClubRainbowSG.Controllers
                     r.programmeSession_name_FK == registrationDto.programmeSession_name_FK);
                 var testProgram = await _context.TestProgram
             .FirstOrDefaultAsync(tp => tp.pcscode == registrationDto.programmePCS_FK);
-                if (existingRegistration != null)
+                if (existingRegistration != null&&existingRegistration.Status!= "Cancelled")
                 {
                     ViewBag.ErrorMessage = "Duplicate registration is not allowed.";
                     ViewBag.Pcscode = registrationDto.programmePCS_FK;
@@ -161,13 +161,21 @@ namespace ClubRainbowSG.Controllers
                     // Return a view, error message, or simply redirect
                     ModelState.AddModelError(string.Empty, "Duplicate registration is not allowed.");
                     return View("registrationdetails"); // Replace with appropriate error handling
+                }else if (existingRegistration != null && existingRegistration.Status == "Cancelled")
+                {
+                    existingRegistration.Status = "Pending";
+                    existingRegistration.ticket_count = registrationDto.TicketCount;
+                    await _context.SaveChangesAsync();
+                    Console.WriteLine("changing status");
+                    return RedirectToAction("myevent", "Event");
                 }
                 var registration = new Registration
                 {
                     contactFK = registrationDto.ContactFK,
                     programmePCS_FK = registrationDto.programmePCS_FK,
                     programmeSession_name_FK = registrationDto.programmeSession_name_FK,
-                    ticket_count = registrationDto.TicketCount
+                    ticket_count = registrationDto.TicketCount,
+                    Status="Pending"
                 };
 
                 _context.Registration.Add(registration);
