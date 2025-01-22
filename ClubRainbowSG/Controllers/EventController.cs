@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using ClubRainbowSG.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text;
+using System;
 
 namespace ClubRainbowSG.Controllers
 {
@@ -34,29 +37,50 @@ namespace ClubRainbowSG.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult cancelevent(string pcscode)
+        public IActionResult cancelevent(string pcscode,string sesname)
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
+            ViewBag.sessionname = sesname;
 			return View();
         }
         [HttpPost]
-        public async Task<IActionResult> cancelevent(string pcscode, string accntname)
+        public async Task<IActionResult> cancelevent(string pcscode, string accntname,string sesname)
         {
-            if (string.IsNullOrEmpty(pcscode) || string.IsNullOrEmpty(accntname))
+            if (string.IsNullOrEmpty(pcscode) || string.IsNullOrEmpty(accntname) || string.IsNullOrEmpty(sesname))
             {
                 Console.WriteLine("nullinput");
                 return RedirectToAction("myevent","Event");
             }
-            Console.WriteLine(pcscode);
-            var targetevent= await _context.Registration.FirstOrDefaultAsync(r => r.programmePCS_FK == pcscode&&r.contactFK== accntname);
+            
+           
+            var targetevent= await _context.Registration.FirstOrDefaultAsync(r => r.programmePCS_FK == pcscode&&r.contactFK== accntname && r.programmeSession_name_FK == sesname);
+            var eventinfo = await _context.TestProgram.FirstOrDefaultAsync(tp=>tp.pcscode==pcscode && tp.session_name==sesname);
+            var userinfo= await _context.Contacts.FirstOrDefaultAsync(c=>c.account_name==accntname);
             if (targetevent == null)
             {
                 Console.WriteLine("nullvalue");
                 return RedirectToAction("myevent", "Event");
             }
+            var username = userinfo.full_name;
+            var eventname = eventinfo.pcsname;
+            var session = eventinfo.session_name;
+            Console.WriteLine(username+" "+eventname+session);
             targetevent.Status = "Cancelled";
             await _context.SaveChangesAsync();
+            /*var client = new HttpClient();
+            var url = "https://prod-04.southeastasia.logic.azure.com:443/workflows/cda35aa3a3f243348fcd22b35a3944ff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8Br4x1XzwU265q3riTers3dzxHiVjUePt2bu8pJs-jY";
+
+            var payload = new
+            {
+                username = userinfo.full_name,
+                eventname = eventinfo.pcsname,
+                datetime=eventinfo.session_name
+            };
+            var jsonString = JsonSerializer.Serialize(payload);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(url, content);*/
             Console.WriteLine("yay");
             return RedirectToAction("myevent","Event");
         }

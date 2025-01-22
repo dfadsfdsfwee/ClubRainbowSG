@@ -174,7 +174,8 @@ namespace ClubRainbowSG.Controllers
                     contactFK = registrationDto.ContactFK,
                     programmePCS_FK = registrationDto.programmePCS_FK,
                     programmeSession_name_FK = registrationDto.programmeSession_name_FK,
-                    ticket_count = registrationDto.TicketCount
+                    ticket_count = registrationDto.TicketCount,
+                    Status="Pending"
                 };
 
                 _context.Registration.Add(registration);

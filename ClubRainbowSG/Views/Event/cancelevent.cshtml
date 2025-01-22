@@ -3,7 +3,7 @@
 @{
 }
 	<div class="sub_division">
-    @if (!string.IsNullOrEmpty(ViewBag.pcscode) && !string.IsNullOrEmpty(ViewBag.accountname))
+    @if (!string.IsNullOrEmpty(ViewBag.pcscode) && !string.IsNullOrEmpty(ViewBag.accountname) && !string.IsNullOrEmpty(ViewBag.sessionname))
 	{
         <form asp-action="cancelevent" asp-controller="Event" method="post" class="form-group">
             <div class="form-div-groups">
@@ -14,6 +14,7 @@
             <div class="form-div-groups">
                 <input type="hidden" value=@ViewBag.pcscode id="pcscode" name="pcscode" />
                 <input type="hidden" value=@ViewBag.accountname id="accntname" name="accntname" />
+                <input type="hidden" value=@ViewBag.sessionname id="sesname" name="sesname" />
             </div>
             @* @if (ViewData.ModelState.ContainsKey("cancelErr"))
             {
@@ -23,6 +24,8 @@
             <a class="btn" href="@Url.Action("eventHome", "Home")">Keep Booking</a>
         </form>
         <p>@ViewBag.pcscode</p>
+        <p>@ViewBag.accountname</p>
+        <p>@ViewBag.sessionname</p>
 		<br />
 		<div>
 			@* <a class="btn-red" href="@Url.Action("login", "Account")">Cancel Booking</a> *@
