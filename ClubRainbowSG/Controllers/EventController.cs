@@ -187,6 +187,43 @@ namespace ClubRainbowSG.Controllers
                 ModelState.AddModelError("Password", "You did not register for this event");
                 return View(loginvm);
             }
+            var attendanceRecord = _context.Attendance
+                                           .FirstOrDefault(a => a.contactFK == user.account_name && a.programmePCS_FK == pcscode);
+
+            if (attendanceRecord != null)
+            {
+
+                if (attendanceRecord.Attendence == "Present")
+                {
+                    //TempData["Message"] = "You have already marked your attendance for this event.";
+                    ModelState.AddModelError("Password", "You have already marked your attendance for this event.");
+                    ViewBag.pcscode = pcscode;
+                    ViewBag.sessionname = sesname;
+                    return View(loginvm);
+                }
+                else
+                {
+
+                    attendanceRecord.Attendence = "Present";
+                    _context.SaveChanges();
+                    TempData["Message"] = "Attendance marked successfully!";
+                }
+            }
+            else
+            {
+                var newAttendance = new Attendance
+                {
+                    contactFK = user.account_name,
+                    programmePCS_FK = pcscode,
+
+                    Attendence = "Present",
+                    ticket_count = registration.ticket_count,
+                    programmeSession_nameFK = sesname,
+                };
+                _context.Attendance.Add(newAttendance);
+                _context.SaveChanges();
+                TempData["Message"] = "Attendance marked successfully!";
+            }
             TempData["TicketCount"] = registration.ticket_count;
             return RedirectToAction("attendancetaken", "Event");
         }
@@ -194,6 +231,7 @@ namespace ClubRainbowSG.Controllers
         public IActionResult attendancetaken()
         {
             ViewBag.Ticket = TempData["TicketCount"];
+            ViewBag.message = TempData["Message"];
             return View();
         }
     }
