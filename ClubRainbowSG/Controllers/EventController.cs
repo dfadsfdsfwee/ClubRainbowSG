@@ -47,20 +47,20 @@ namespace ClubRainbowSG.Controllers
                                 .Select(e => e.pcsname)
                                 .FirstOrDefault();
 
-            // Check if the record already exists in the Attendance table
+         
             var attendanceRecord = _context.Attendance
                                             .FirstOrDefault(a => a.contactFK == accountName && a.programmePCS_FK == programmePCS_FK);
 
             if (attendanceRecord != null)
             {
-                // If the attendance is already marked, return a message (optional)
+                
                 if (attendanceRecord.Attendence == "Present")
                 {
                     TempData["Message"] = "You have already marked your attendance for this event.";
                 }
                 else
                 {
-                    // Update attendance if not already marked
+                   
                     attendanceRecord.Attendence = "Present";
                     _context.SaveChanges();
                     TempData["Message"] = "Attendance marked successfully!";
@@ -68,7 +68,7 @@ namespace ClubRainbowSG.Controllers
             }
             else
             {
-                // If no record exists, create a new entry for the attendance
+               
                 var newAttendance = new Attendance
                 {
                     contactFK = accountName,
@@ -83,7 +83,7 @@ namespace ClubRainbowSG.Controllers
                 TempData["Message"] = "Attendance marked successfully!";
             }
 
-            // After marking attendance, redirect back to the event list page
+
             return RedirectToAction("MyEvent");
         }
 
