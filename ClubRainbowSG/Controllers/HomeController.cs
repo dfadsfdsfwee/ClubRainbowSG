@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text;
 
 namespace ClubRainbowSG.Controllers
 {
@@ -147,6 +149,9 @@ namespace ClubRainbowSG.Controllers
                     r.programmeSession_name_FK == registrationDto.programmeSession_name_FK);
                 var testProgram = await _context.TestProgram
             .FirstOrDefaultAsync(tp => tp.pcscode == registrationDto.programmePCS_FK);
+
+                
+
                 if (existingRegistration != null&&existingRegistration.Status!= "Cancelled")
                 {
                     ViewBag.ErrorMessage = "Duplicate registration is not allowed.";
@@ -165,6 +170,23 @@ namespace ClubRainbowSG.Controllers
                 {
                     existingRegistration.Status = "Pending";
                     existingRegistration.ticket_count = registrationDto.TicketCount;
+
+                    var client = new HttpClient();
+                    var url = "https://prod-38.southeastasia.logic.azure.com:443/workflows/f28a4b46c9554205a86b46581931ea66/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gxdDkdR1LiLaiHOrvob3ObruQM0UZ7scGQon0qq978k";
+                    var payload = new
+                    {
+                        session_name = existingRegistration.programmeSession_name_FK,
+                        pcsname = testProgram.pcsname,
+                        email = HttpContext.Session.GetString("UserEmail"),
+                        pcscode = existingRegistration.programmePCS_FK
+                    };
+                    var jsonString = JsonSerializer.Serialize(payload);
+                    var content = new StringContent(
+                        jsonString,
+                        Encoding.UTF8,
+                        "application/json");
+                    var response = await client.PostAsync(url, content);
+
                     await _context.SaveChangesAsync();
                     Console.WriteLine("changing status");
                     return RedirectToAction("myevent", "Event");
@@ -179,6 +201,23 @@ namespace ClubRainbowSG.Controllers
                 };
 
                 _context.Registration.Add(registration);
+
+                var client2 = new HttpClient();
+                var url2 = "https://prod-38.southeastasia.logic.azure.com:443/workflows/f28a4b46c9554205a86b46581931ea66/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gxdDkdR1LiLaiHOrvob3ObruQM0UZ7scGQon0qq978k";
+                var payload2 = new
+                {
+                    session_name = registrationDto.programmeSession_name_FK,
+                    pcsname = testProgram.pcsname,
+                    email = HttpContext.Session.GetString("UserEmail"),
+                    pcscode = registrationDto.programmePCS_FK
+                };
+                var jsonString2 = JsonSerializer.Serialize(payload2);
+                var content2 = new StringContent(
+                    jsonString2,
+                    Encoding.UTF8,
+                    "application/json");
+                var response2 = await client2.PostAsync(url2, content2);
+
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("myevent", "Event");

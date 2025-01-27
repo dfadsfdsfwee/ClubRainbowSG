@@ -37,7 +37,7 @@ namespace ClubRainbowSG.Controllers
 
             return View();
         }
-        public IActionResult cancelevent()
+        public IActionResult cancelevent(string pcscode, string sesname)
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
