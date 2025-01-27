@@ -37,7 +37,57 @@ namespace ClubRainbowSG.Controllers
 
             return View();
         }
-        public IActionResult cancelevent()
+        [HttpPost]
+        public IActionResult MarkAttendance(string programmePCS_FK, int ticket_count)
+        {
+            var accountName = HttpContext.Session.GetString("Useraccountname");
+
+            var sessionName = _context.TestProgram
+                                .Where(e => e.pcscode == programmePCS_FK)
+                                .Select(e => e.pcsname)
+                                .FirstOrDefault();
+
+            // Check if the record already exists in the Attendance table
+            var attendanceRecord = _context.Attendance
+                                            .FirstOrDefault(a => a.contactFK == accountName && a.programmePCS_FK == programmePCS_FK);
+
+            if (attendanceRecord != null)
+            {
+                // If the attendance is already marked, return a message (optional)
+                if (attendanceRecord.Attendence == "Present")
+                {
+                    TempData["Message"] = "You have already marked your attendance for this event.";
+                }
+                else
+                {
+                    // Update attendance if not already marked
+                    attendanceRecord.Attendence = "Present";
+                    _context.SaveChanges();
+                    TempData["Message"] = "Attendance marked successfully!";
+                }
+            }
+            else
+            {
+                // If no record exists, create a new entry for the attendance
+                var newAttendance = new Attendance
+                {
+                    contactFK = accountName,
+                    programmePCS_FK = programmePCS_FK,
+
+                    Attendence = "Present",
+                    ticket_count = ticket_count,
+                    programmeSession_nameFK = sessionName,
+                };
+                _context.Attendance.Add(newAttendance);
+                _context.SaveChanges();
+                TempData["Message"] = "Attendance marked successfully!";
+            }
+
+            // After marking attendance, redirect back to the event list page
+            return RedirectToAction("MyEvent");
+        }
+
+        public IActionResult cancelevent(string pcscode,string sesname)
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
