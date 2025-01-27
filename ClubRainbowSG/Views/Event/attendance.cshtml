@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@if (!string.IsNullOrEmpty(ViewBag.pcscode)  && !string.IsNullOrEmpty(ViewBag.sessionname))
+{
+   @*  <div>
+        <p>@ViewBag.pcscode</p>
+        <p>@ViewBag.sessionname</p>
+    </div> *@
+
+
+@model ClubRainbowSG.Models.LoginVM
+
+<form asp-action="Attendance" asp-controller="Event" method="post" class="login-form dynamicDiv">
+    <div class="form-div-groups">
+        <h1>Login to mark your attendance</h1>
+    </div>
+    <div class="form-div-groups">
+        <label for="email">Email</label><br>
+        <input type="text" id="email" name="email" placeholder="Your Email" asp-for="Email" />
+        <span asp-validation-for="Email" class="error-message"></span>
+    </div>
+
+    <div class="form-div-groups">
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" placeholder="Your Password" asp-for="Password" />
+    </div>
+    <div class="form-div-groups">
+        <input type="hidden" value=@ViewBag.pcscode id="pcscode" name="pcscode" />
+        <input type="hidden" value=@ViewBag.sessionname id="sesname" name="sesname" />
+    </div>
+    <div class="form-div-groups">
+        <a href="@Url.Action("ResetPassword", "Password")">Forget Password?</a>
+    </div>
+    <button type="submit" class="btn">Login</button><br />
+    <div id="invaildlogin">
+        <span asp-validation-for="Password" class="error-message"></span>
+    </div>
+</form>
+
+
+<!-- Temporary debugging line to display the value of ViewBag.PassMatch -->
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger mt-3">@ViewBag.Message</div>
+}
+
+}
+<script>
+    function showpasswordfunction() {
+        var checkboxstate = document.getElementById("password");
+        if (checkboxstate.type === "password") {
+            checkboxstate.type = "text";
+        } else {
+            checkboxstate.type = "password";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            const emailInput = document.getElementById("email");
+            const passwordInput = document.getElementById("password");
+
+            document.querySelectorAll(".error-message").forEach(el => el.remove());
+            if (emailInput.value.trim() === "") {
+                isValid = false;
+                showError(emailInput, "Email cannot be empty");
+            }
+
+            if (passwordInput.value.trim() === "") {
+                isValid = false;
+                showError(passwordInput, "Password cannot be empty");
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        function showError(input, message) {
+            const errorSpan = document.createElement("div");
+            errorSpan.className = "error-message";
+            errorSpan.textContent = message;
+            errorSpan.innerHTML = message;
+            input.parentNode.appendChild(errorSpan);
+        }
+    });
+</script>
+
+

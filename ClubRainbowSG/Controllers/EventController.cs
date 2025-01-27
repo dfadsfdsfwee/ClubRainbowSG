@@ -37,57 +37,7 @@ namespace ClubRainbowSG.Controllers
 
             return View();
         }
-        [HttpPost]
-        public IActionResult MarkAttendance(string programmePCS_FK, int ticket_count)
-        {
-            var accountName = HttpContext.Session.GetString("Useraccountname");
-
-            var sessionName = _context.TestProgram
-                                .Where(e => e.pcscode == programmePCS_FK)
-                                .Select(e => e.pcsname)
-                                .FirstOrDefault();
-
-         
-            var attendanceRecord = _context.Attendance
-                                            .FirstOrDefault(a => a.contactFK == accountName && a.programmePCS_FK == programmePCS_FK);
-
-            if (attendanceRecord != null)
-            {
-                
-                if (attendanceRecord.Attendence == "Present")
-                {
-                    TempData["Message"] = "You have already marked your attendance for this event.";
-                }
-                else
-                {
-                   
-                    attendanceRecord.Attendence = "Present";
-                    _context.SaveChanges();
-                    TempData["Message"] = "Attendance marked successfully!";
-                }
-            }
-            else
-            {
-               
-                var newAttendance = new Attendance
-                {
-                    contactFK = accountName,
-                    programmePCS_FK = programmePCS_FK,
-
-                    Attendence = "Present",
-                    ticket_count = ticket_count,
-                    programmeSession_nameFK = sessionName,
-                };
-                _context.Attendance.Add(newAttendance);
-                _context.SaveChanges();
-                TempData["Message"] = "Attendance marked successfully!";
-            }
-
-
-            return RedirectToAction("MyEvent");
-        }
-
-        public IActionResult cancelevent(string pcscode,string sesname)
+        public IActionResult cancelevent()
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
@@ -118,19 +68,26 @@ namespace ClubRainbowSG.Controllers
             Console.WriteLine(username+" "+eventname+session);
             targetevent.Status = "Cancelled";
             await _context.SaveChangesAsync();
-            /*var client = new HttpClient();
-            var url = "https://prod-04.southeastasia.logic.azure.com:443/workflows/cda35aa3a3f243348fcd22b35a3944ff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8Br4x1XzwU265q3riTers3dzxHiVjUePt2bu8pJs-jY";
-
+            var client = new HttpClient();
+            var url = "https://prod-19.southeastasia.logic.azure.com:443/workflows/d07ec9aa907a40e9aa3b410f95718929/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=kRx1T5WGFNoR_Hdyw40mFR58tB3aYWIjhxIGJYi3SoA";
+            var url2 = "https://prod-47.southeastasia.logic.azure.com:443/workflows/de976f7f4dc540088223376b57083553/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=n6B_zExFOHGBHR105hVAWDA5lMZyu4hw3ToEiMZD3Pg";
             var payload = new
             {
                 username = userinfo.full_name,
                 eventname = eventinfo.pcsname,
-                datetime=eventinfo.session_name
+                session = eventinfo.session_name
+            };
+            var payload2 = new
+            {
+                email=userinfo.email,
+                eventname=eventinfo.pcsname
             };
             var jsonString = JsonSerializer.Serialize(payload);
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(url, content);*/
+            var response = await client.PostAsync(url, content);
+            var jsonString2 = JsonSerializer.Serialize(payload2);
+            var content2 = new StringContent(jsonString2, Encoding.UTF8, "application/json");
+            var response2 = await client.PostAsync(url2, content2);
             Console.WriteLine("yay");
             return RedirectToAction("myevent","Event");
         }
@@ -150,6 +107,46 @@ namespace ClubRainbowSG.Controllers
             Console.WriteLine($"Scanned Text: {data.ScannedText}");
             return Ok();
         }
+        public IActionResult attendance(string pcscode,string sesname)
+        {
+            ViewBag.pcscode = pcscode;
+            ViewBag.sessionname = sesname;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> attendance(LoginVM loginvm, string pcscode, string sesname)
+        {
+            if (!ModelState.IsValid)
+                return View(loginvm);
+            var user = await _context.Contacts
+                .FirstOrDefaultAsync(c => c.email == loginvm.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Password", "Email is not registered.");
+                return View(loginvm);
+            }
+            if (user.hashed_password != loginvm.Password) // Replace with hashing logic
+            {
+                ModelState.AddModelError("Password", "Incorrect email or password.");
+                return View(loginvm);
+            }
 
+            var registration = await _context.Registration.FirstOrDefaultAsync(r => r.contactFK == user.account_name && r.programmePCS_FK == pcscode && r.programmeSession_name_FK == sesname);
+            if (registration == null||registration.Status=="Cancelled")
+            {
+                ViewBag.pcscode = pcscode;
+                ViewBag.sessionname=sesname;
+                ModelState.AddModelError("Password", "You did not register for this event");
+                return View(loginvm);
+            }
+            TempData["TicketCount"] = registration.ticket_count;
+            return RedirectToAction("attendancetaken", "Event");
+        }
+
+        public IActionResult attendancetaken()
+        {
+            ViewBag.Ticket = TempData["TicketCount"];
+            return View();
+        }
     }
 }
