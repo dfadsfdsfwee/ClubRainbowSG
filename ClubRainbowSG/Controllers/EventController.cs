@@ -107,6 +107,28 @@ namespace ClubRainbowSG.Controllers
             Console.WriteLine($"Scanned Text: {data.ScannedText}");
             return Ok();
         }
+        public IActionResult attendance(string pcscode,string sesname)
+        {
+            ViewBag.pcscode = pcscode;
+            ViewBag.sessionname = sesname;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> attendance(LoginVM loginvm, string pcscode, string sesname)
+        {
+            if (!ModelState.IsValid)
+                return View(loginvm);
+            var user = await _context.Contacts
+                .FirstOrDefaultAsync(c => c.email == loginvm.Email);
+            var registration = await _context.Registration.FirstOrDefaultAsync(r => r.contactFK == user.account_name && r.programmePCS_FK == pcscode && r.programmeSession_name_FK == sesname);
+            TempData["TicketCount"] = registration.ticket_count;
+            return RedirectToAction("attendancetaken", "Event");
+        }
 
+        public IActionResult attendancetaken()
+        {
+            ViewBag.Ticket = TempData["TicketCount"];
+            return View();
+        }
     }
 }

@@ -33,7 +33,11 @@ namespace ClubRainbowSG.Controllers
 
             var user = await _context.Contacts
                 .FirstOrDefaultAsync(c => c.email == loginvm.Email);     
-
+            if (user == null)
+            {
+                ModelState.AddModelError("Password", "Email is not registered.");
+                return View(loginvm);
+            }
             if (user.hashed_password != loginvm.Password) // Replace with hashing logic
             {
                 ModelState.AddModelError("Password", "Incorrect email or password.");
