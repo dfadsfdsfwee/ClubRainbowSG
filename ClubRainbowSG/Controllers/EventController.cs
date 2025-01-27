@@ -120,7 +120,25 @@ namespace ClubRainbowSG.Controllers
                 return View(loginvm);
             var user = await _context.Contacts
                 .FirstOrDefaultAsync(c => c.email == loginvm.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("Password", "Email is not registered.");
+                return View(loginvm);
+            }
+            if (user.hashed_password != loginvm.Password) // Replace with hashing logic
+            {
+                ModelState.AddModelError("Password", "Incorrect email or password.");
+                return View(loginvm);
+            }
+
             var registration = await _context.Registration.FirstOrDefaultAsync(r => r.contactFK == user.account_name && r.programmePCS_FK == pcscode && r.programmeSession_name_FK == sesname);
+            if (registration == null||registration.Status=="Cancelled")
+            {
+                ViewBag.pcscode = pcscode;
+                ViewBag.sessionname=sesname;
+                ModelState.AddModelError("Password", "You did not register for this event");
+                return View(loginvm);
+            }
             TempData["TicketCount"] = registration.ticket_count;
             return RedirectToAction("attendancetaken", "Event");
         }
