@@ -37,7 +37,55 @@ namespace ClubRainbowSG.Controllers
 
             return View();
         }
-        public IActionResult cancelevent()
+        [HttpPost]
+        public IActionResult MarkAttendance(string programmePCS_FK, int ticket_count)
+        {
+            var accountName = HttpContext.Session.GetString("Useraccountname");
+
+            var sessionName = _context.TestProgram
+                                .Where(e => e.pcscode == programmePCS_FK)
+                                .Select(e => e.pcsname)
+                                .FirstOrDefault();
+
+            var attendanceRecord = _context.Attendance
+                                            .FirstOrDefault(a => a.contactFK == accountName && a.programmePCS_FK == programmePCS_FK);
+
+            if (attendanceRecord != null)
+            {
+               
+                if (attendanceRecord.Attendence == "Present")
+                {
+                    TempData["Message"] = "You have already marked your attendance for this event.";
+                }
+                else
+                {
+                   
+                    attendanceRecord.Attendence = "Present";
+                    _context.SaveChanges();
+                    TempData["Message"] = "Attendance marked successfully!";
+                }
+            }
+            else
+            {
+               
+                var newAttendance = new Attendance
+                {
+                    contactFK = accountName,
+                    programmePCS_FK = programmePCS_FK,
+
+                    Attendence = "Present",
+                    ticket_count = ticket_count,
+                    programmeSession_nameFK = sessionName,
+                };
+                _context.Attendance.Add(newAttendance);
+                _context.SaveChanges();
+                TempData["Message"] = "Attendance marked successfully!";
+            }
+
+            return RedirectToAction("MyEvent");
+        }
+
+        public IActionResult cancelevent(string pcscode, string sesname)
         {
             ViewBag.pcscode = pcscode;
             ViewBag.accountname = HttpContext.Session.GetString("Useraccountname");
