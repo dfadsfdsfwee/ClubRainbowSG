@@ -2,6 +2,7 @@
 @model ClubRainbowSG.Views.Event.myeventModel
 @{
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     @if (ViewBag.myevents != null && ((IEnumerable<dynamic>)ViewBag.myevents).Any())
     {
@@ -19,7 +20,23 @@
                     <input type="hidden" name="ticket_count" value="@evt.ticket_count" />
                     <button type="submit" class="btn">Mark Attendance</button>
                 </form>
-            </div> 
+            </div>
+            <div class="modal" id="messageModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Message</h4>
+                        </div>
+                        <div class="modal-body" id="messageText">
+                            <!-- Message will be injected here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         }
     </div>
     }
@@ -30,3 +47,21 @@
             <h1>Please register for events to start managing them here!</h1>
         </div>
     }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var message = '@TempData["Message"]';
+        if (message) {
+            $('#messageText').text(message);
+            $('#messageModal').modal('show');
+        }
+
+        // Hide the modal when the close button is clicked
+        $('.btn-danger').click(function () {
+            $('#messageModal').modal('hide');
+        });
+    });
+</script>
+
+
+
