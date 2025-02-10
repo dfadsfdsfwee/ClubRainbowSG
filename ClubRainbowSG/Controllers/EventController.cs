@@ -23,7 +23,7 @@ namespace ClubRainbowSG.Controllers
                            join evt in _context.TestProgram
                            on reg.programmePCS_FK equals evt.pcscode // Join condition
                            where reg.contactFK == accountname // Filter by contactfk
-                           && reg.Status != "Cancelled"
+                           && reg.Status == "Confirmed"
                            select new
                            {
                                evt.pcsname,       // Event name from Events table
